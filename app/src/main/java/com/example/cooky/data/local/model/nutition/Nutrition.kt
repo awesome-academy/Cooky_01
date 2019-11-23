@@ -1,8 +1,13 @@
 package com.example.cooky.data.local.model.nutition
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "nutrition")
 data class Nutrition(
+    @PrimaryKey
+    var nutritionId: Int = 0,
     @SerializedName("bad")
     val bad: List<Bad>,
     @SerializedName("calories")
