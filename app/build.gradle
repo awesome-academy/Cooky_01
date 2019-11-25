@@ -9,7 +9,9 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
+
     defaultConfig {
+        buildConfigField "String", "API_KEY", "\"${API_KEY}\""
         applicationId "com.example.cooky"
         minSdkVersion 15
         targetSdkVersion 28
