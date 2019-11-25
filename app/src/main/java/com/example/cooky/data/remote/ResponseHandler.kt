@@ -1,20 +1,21 @@
 package com.example.cooky.data.remote
 
+import com.example.cooky.base.BaseResponse
 import com.example.cooky.data.remote.api.*
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.SocketTimeoutException
 
 class ResponseHandler() {
-    fun <T : Any> handleSuccess(data: T): Resource<T> {
-        return Resource.success(data)
+    fun <T : Any> handleSuccess(data: T): BaseResponse<T> {
+        return BaseResponse.success(data)
     }
 
-    fun <T : Any> handleException(e: Exception): Resource<T> {
+    fun <T : Any> handleException(e: Exception): BaseResponse<T> {
         return when (e) {
-            is HttpException -> Resource.error(getErrorMessage(e.code()), null)
-            is SocketTimeoutException -> Resource.error(getErrorMessage(CODE_TIMEOUT), null)
-            else -> Resource.error(e.toString(), null)
+            is HttpException -> BaseResponse.error(getErrorMessage(e.code()), null)
+            is SocketTimeoutException -> BaseResponse.error(getErrorMessage(CODE_TIMEOUT), null)
+            else -> BaseResponse.error(e.toString(), null)
         }
     }
 
