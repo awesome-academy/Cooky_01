@@ -1,7 +1,10 @@
 package com.example.cooky.data.local.model.recipe
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "recipe")
 data class Recipe(
     @SerializedName("aggregateLikes")
     val aggregateLikes: Int,
@@ -23,8 +26,9 @@ data class Recipe(
     val glutenFree: Boolean,
     @SerializedName("healthScore")
     val healthScore: Double,
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    val recipeId: Int,
     @SerializedName("image")
     val image: String,
     @SerializedName("ketogenic")

@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class Bad(
     @SerializedName("amount")
     val amount: String,
-    @SerializedName("indented")
-    val indented: Boolean,
     @SerializedName("percentOfDailyNeeds")
     val percentOfDailyNeeds: Double,
     @SerializedName("title")
