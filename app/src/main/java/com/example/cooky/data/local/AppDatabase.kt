@@ -7,7 +7,11 @@ import com.example.cooky.data.local.dao.RecipeDAO
 import com.example.cooky.data.local.model.nutition.Nutrition
 import com.example.cooky.data.local.model.recipe.Recipe
 
-@Database(entities = [Nutrition::class, Recipe::class], version = AppDatabase.DATABASE_VERSION)
+@Database(
+    entities = [Nutrition::class, Recipe::class],
+    version = AppDatabase.DATABASE_VERSION,
+    exportSchema = false
+)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
