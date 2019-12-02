@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/destination_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/title_home" />
+
+        <item
+            android:id="@+id/destination_ingredient"
+            android:icon="@drawable/ic_apple"
+            android:title="@string/title_ingredient_search" />
+
+        <item
+            android:id="@+id/destination_nutrient"
+            android:icon="@drawable/ic_calories"
+            android:title="@string/title_nutrient_search" />
+
+        <item
+            android:id="@+id/destination_info"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/title_infomation" />
+    </group>
+
+    <group android:id="@+id/group_more">
+
+        <item
+            android:id="@+id/option_rate_app"
+            android:icon="@drawable/ic_like"
+            android:title="@string/title_rate_app" />
+
+        <item
+            android:id="@+id/option_contact"
+            android:icon="@drawable/ic_envelope"
+            android:title="@string/title_contact" />
+    </group>
+</menu>
