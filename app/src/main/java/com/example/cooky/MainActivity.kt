@@ -2,12 +2,15 @@ package com.example.cooky
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.example.cooky.base.SetupDrawer
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SetupDrawer {
 
     lateinit var navController: NavController
 
@@ -21,5 +24,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
+    }
+
+    override fun onShowDrawer() {
+        layoutDrawer.openDrawer(Gravity.LEFT)
+    }
+
+    override fun onHideDrawer() {
+        layoutDrawer.closeDrawer(Gravity.LEFT)
+    }
+
+    override fun onLockDrawer() {
+        layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    override fun onUnLockDrawer() {
+        layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
     }
 }
