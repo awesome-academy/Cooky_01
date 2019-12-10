@@ -9,4 +9,7 @@
     <string name="title_infomation">Information</string>
     <string name="title_rate_app">Rate this App</string>
     <string name="title_contact">Contact us</string>
+    <string name="option_search">Search</string>
+    <string name="option_label">Add Label</string>
+    <string name="title_general">Search for recipes</string>
 </resources>

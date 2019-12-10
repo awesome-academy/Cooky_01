@@ -14,7 +14,7 @@ import com.example.cooky.util.showToast
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
     protected abstract val layoutResource: Int
     protected abstract val viewModel: VM
-    private lateinit var dataBinding: VB
+    protected lateinit var dataBinding: VB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +52,6 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragme
 
     private fun handleGetMessage(message: String) {
         context?.showToast(message)
-        hideLoading()
     }
 
     private fun handleLoading(isLoading: Boolean) {
