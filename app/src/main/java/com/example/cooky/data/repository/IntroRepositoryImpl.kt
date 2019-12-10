@@ -93,6 +93,30 @@ class IntroRepositoryImpl(
             responseHandler.handleException(e)
         }
 
+    override suspend fun searchRandomRecipes(
+        cuisine: String,
+        type: String,
+        diet: String,
+        number: Int,
+        isInstructionRequired: Boolean,
+        sort: String,
+        sortDirection: String
+    ): BaseResponse<IntroRecipeResponse> =
+        try{
+            val response = apiService.searchRandomRecipes(
+                cuisine,
+                type,
+                diet,
+                number,
+                isInstructionRequired,
+                sort,
+                sortDirection
+            )
+            responseHandler.handleSuccess(response)
+        }catch (e: Exception){
+            responseHandler.handleException(e)
+        }
+
 
     override suspend fun getRandomRecipes(
         number: Int,
