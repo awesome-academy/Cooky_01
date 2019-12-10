@@ -12,4 +12,8 @@
     <string name="option_search">Search</string>
     <string name="option_label">Add Label</string>
     <string name="title_general">Search for recipes</string>
+    <string name="title_main">MAIN COURSE</string>
+    <string name="title_dessert">DESSERT</string>
+    <string name="title_vietnamese">VIETNAMESE</string>
+    <string name="title_recent">RECENT</string>
 </resources>

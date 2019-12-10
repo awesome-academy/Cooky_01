@@ -24,6 +24,16 @@ interface IntroRepository {
         searchOption: SearchOption
     ): BaseResponse<IntroRecipeResponse>
 
+    suspend fun searchRandomRecipes(
+        cuisine: String = EMPTY_STRING,
+        type: String = EMPTY_STRING,
+        diet: String = EMPTY_STRING,
+        number: Int = DEFAULT_NUMBER,
+        isInstructionRequired: Boolean = false,
+        sort: String = EMPTY_STRING,
+        sortDirection: String = EMPTY_STRING
+    ): BaseResponse<IntroRecipeResponse>
+
     suspend fun getRandomRecipes(
         number: Int = DEFAULT_NUMBER,
         tags: String = EMPTY_STRING

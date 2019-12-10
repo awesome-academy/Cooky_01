@@ -7,12 +7,6 @@ data class IntroRecipe(
     val id: Int,
     @SerializedName("image")
     val image: String,
-    @SerializedName("imageUrls")
-    val imageUrls: List<String>,
-    @SerializedName("readyInMinutes")
-    val readyInMinutes: Int,
-    @SerializedName("servings")
-    val servings: Int,
     @SerializedName("title")
     val title: String
 )

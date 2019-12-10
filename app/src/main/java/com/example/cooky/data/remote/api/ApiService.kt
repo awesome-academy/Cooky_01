@@ -70,6 +70,17 @@ interface ApiService {
         @Query(QUERY_EXCLUDE_INGREDIENTS) excludeIngredients: String
     ): IntroRecipeResponse
 
+    @GET("$PATH_RECIPE/$PATH_COMPLEXSEARCH")
+    suspend fun searchRandomRecipes(
+        @Query(QUERY_CUISINE) cuisine: String,
+        @Query(QUERY_TYPE) type: String,
+        @Query(QUERY_DIET) diet: String,
+        @Query(QUERY_NUMBER) number: Int,
+        @Query(QUERY_INSTRUCTIONS_REQUIRED) isInstructionRequired: Boolean,
+        @Query(QUERY_SORT) sort: String,
+        @Query(QUERY_SORTDIRECTION) sortDirection: String
+    ): IntroRecipeResponse
+
     @GET("$PATH_RECIPE/$PATH_RANDOM")
     suspend fun getRandomRecipes(
         @Query(QUERY_NUMBER) number: Int,
