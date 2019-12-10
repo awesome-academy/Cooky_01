@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -16,7 +15,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.cooky.R
 
 @BindingAdapter("loadImage")
-fun ImageView.loadImage(uri: String?){
+fun ImageView.loadImage(uri: String?) {
     Glide.with(context)
         .asBitmap()
         .load(uri)
@@ -27,11 +26,11 @@ fun ImageView.loadImage(uri: String?){
 }
 
 @BindingAdapter("loadBigImage")
-fun ImageView.loadBigImage(uri: String?){
-        if(uri != null) {
+fun ImageView.loadBigImage(uri: String?) {
+    if (uri != null) {
         val first = uri.indexOf('-') + 1
         val stringBuilder = StringBuilder(uri)
-        stringBuilder.replace(first,first+7, BIG_IMAGE_SIZE)
+        stringBuilder.replace(first, first + 7, BIG_IMAGE_SIZE)
         val newUri = stringBuilder.toString()
         Glide.with(context)
             .asBitmap()
