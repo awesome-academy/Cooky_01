@@ -12,6 +12,6 @@ val viewModelModule = module {
     viewModel { FavoriteViewModel() }
     viewModel { RecipeViewModel() }
     viewModel { GeneralViewModel() }
-    viewModel { GeneralContentViewModel() }
+    viewModel { GeneralContentViewModel(get()) }
     viewModel { DiscoverViewModel() }
 }

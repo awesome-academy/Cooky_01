@@ -3,11 +3,175 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.general.content.GeneralContentFragment">
+    <data>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.cooky.ui.general.content.GeneralContentViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                tools:context=".ui.general.content.GeneralContentFragment">
+
+                <ImageView
+                    android:id="@+id/imageSuggest"
+                    loadBigImage="@{viewModel.suggestRecipe.image}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textTitleSuggest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_background_dark"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:text="@{viewModel.suggestRecipe.title}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_24"
+                    android:textStyle="bold"
+                    android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@id/imageSuggest"
+                    app:layout_constraintEnd_toEndOf="@id/imageSuggest"
+                    app:layout_constraintStart_toStartOf="@id/imageSuggest"
+                    app:layout_constraintTop_toTopOf="@id/imageSuggest" />
+
+                <TextView
+                    android:id="@+id/textMain"
+                    style="@style/RecipeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/title_main"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageSuggest" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMain" />
+
+                <TextView
+                    android:id="@+id/textDessert"
+                    style="@style/RecipeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_dessert"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerMain" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerDessert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textDessert" />
+
+                <TextView
+                    android:id="@+id/textVietNamese"
+                    style="@style/RecipeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_vietnamese"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerDessert" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerVietNamese"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textVietNamese" />
+
+                <TextView
+                    android:id="@+id/textRecent"
+                    style="@style/RecipeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_recent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerVietNamese" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewRecent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textRecent"
+                    app:spanCount="2" />
+
+                <ProgressBar
+                    android:id="@+id/progressLoadmore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewRecent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progressLoading"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            app:indicatorColor="@color/colorAccent"
+            app:indicatorName="LineScaleIndicator" />
+    </FrameLayout>
 
 </layout>

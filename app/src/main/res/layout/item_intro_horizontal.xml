@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.cooky.data.local.model.search.IntroRecipe" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_6"
+        tools:ignore="RtlCompat">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/dp_5"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintBottom_toTopOf="@id/textRecipeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop">
+
+            <ImageView
+                loadImage="@{item.image}"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_120"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textRecipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="160dp"
+            android:maxLines="4"
+            android:text="@{item.title}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/imageIntro"
+            app:layout_constraintRight_toRightOf="@id/imageIntro"
+            app:layout_constraintTop_toBottomOf="@id/imageIntro" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
