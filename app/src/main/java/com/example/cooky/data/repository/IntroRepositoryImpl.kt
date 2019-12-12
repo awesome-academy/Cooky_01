@@ -94,9 +94,11 @@ class IntroRepositoryImpl(
         }
 
     override suspend fun searchRandomRecipes(
+        query: String,
         cuisine: String,
         type: String,
         diet: String,
+        intolerances: String,
         number: Int,
         isInstructionRequired: Boolean,
         sort: String,
@@ -104,9 +106,11 @@ class IntroRepositoryImpl(
     ): BaseResponse<IntroRecipeResponse> =
         try{
             val response = apiService.searchRandomRecipes(
+                query,
                 cuisine,
                 type,
                 diet,
+                intolerances,
                 number,
                 isInstructionRequired,
                 sort,

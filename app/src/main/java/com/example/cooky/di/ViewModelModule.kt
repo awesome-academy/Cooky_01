@@ -13,5 +13,5 @@ val viewModelModule = module {
     viewModel { RecipeViewModel() }
     viewModel { GeneralViewModel() }
     viewModel { GeneralContentViewModel(get()) }
-    viewModel { DiscoverViewModel() }
+    viewModel { DiscoverViewModel(get()) }
 }
