@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -13,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.cooky.R
+import com.example.cooky.data.local.model.recipe.ExtendedIngredient
 
 @BindingAdapter("loadImage")
 fun ImageView.loadImage(uri: String?) {
@@ -41,6 +43,27 @@ fun ImageView.loadBigImage(uri: String?) {
     }
 }
 
+@BindingAdapter("loadIngredientImage")
+fun ImageView.loadIngredientImage(image: String?) {
+    if (image != null) {
+        val uri = IMAGE_INGRADIENT_URI + image
+        Glide.with(context)
+            .asBitmap()
+            .load(uri)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(this)
+    }
+}
+
+@BindingAdapter("loadMeasuseAmount")
+fun TextView.loadMeasuseAmount(ingredient: ExtendedIngredient) {
+    val stringBuilder = StringBuilder("${ingredient.measures.metric.amount.toInt()}").apply {
+        append(" ")
+        append(ingredient.measures.metric.unitLong)
+    }
+    this.text = stringBuilder.toString()
+}
+
 @BindingAdapter("loadBackground")
 fun View.loadBackground(uri: String?) {
     Glide.with(context)
@@ -58,13 +81,14 @@ fun View.loadBackground(uri: String?) {
 
 @BindingAdapter("setVisibleIfLoading")
 fun View.setVisibleIfLoading(isLoading: Boolean) {
-    this.visibility = if(isLoading) View.VISIBLE else View.GONE
+    this.visibility = if (isLoading) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("setGoneIfLoading")
 fun View.setGoneIfLoading(isLoading: Boolean) {
-    this.visibility = if(isLoading) View.GONE else View.VISIBLE
+    this.visibility = if (isLoading) View.GONE else View.VISIBLE
 }
 
 const val NORMAL_IMAGE_SIZE = "312x231"
 const val BIG_IMAGE_SIZE = "636x393"
+const val IMAGE_INGRADIENT_URI = "https://spoonacular.com/cdn/ingredients_100x100/"

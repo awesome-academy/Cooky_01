@@ -16,4 +16,8 @@
     <string name="title_dessert">DESSERT</string>
     <string name="title_vietnamese">VIETNAMESE</string>
     <string name="title_recent">RECENT</string>
+    <string name="title_ingredient">Ingredient</string>
+    <string name="title_nutrition">Nutrition</string>
+    <string name="title_limit_these">Limit These</string>
+    <string name="title_get_enough">Get Enough Of These</string>
 </resources>
