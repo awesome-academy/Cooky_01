@@ -25,11 +25,13 @@ interface IntroRepository {
     ): BaseResponse<IntroRecipeResponse>
 
     suspend fun searchRandomRecipes(
+        query: String = EMPTY_STRING,
         cuisine: String = EMPTY_STRING,
-        type: String = EMPTY_STRING,
         diet: String = EMPTY_STRING,
+        intolerances: String = EMPTY_STRING,
+        type: String = EMPTY_STRING,
         number: Int = DEFAULT_NUMBER,
-        isInstructionRequired: Boolean = false,
+        isInstructionRequired: Boolean = true,
         sort: String = EMPTY_STRING,
         sortDirection: String = EMPTY_STRING
     ): BaseResponse<IntroRecipeResponse>

@@ -56,5 +56,15 @@ fun View.loadBackground(uri: String?) {
         })
 }
 
+@BindingAdapter("setVisibleIfLoading")
+fun View.setVisibleIfLoading(isLoading: Boolean) {
+    this.visibility = if(isLoading) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("setGoneIfLoading")
+fun View.setGoneIfLoading(isLoading: Boolean) {
+    this.visibility = if(isLoading) View.GONE else View.VISIBLE
+}
+
 const val NORMAL_IMAGE_SIZE = "312x231"
 const val BIG_IMAGE_SIZE = "636x393"

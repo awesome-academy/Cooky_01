@@ -72,9 +72,11 @@ interface ApiService {
 
     @GET("$PATH_RECIPE/$PATH_COMPLEXSEARCH")
     suspend fun searchRandomRecipes(
+        @Query(QUERY_QUERY) query: String,
         @Query(QUERY_CUISINE) cuisine: String,
         @Query(QUERY_TYPE) type: String,
         @Query(QUERY_DIET) diet: String,
+        @Query(QUERY_INTOLERANCES) intolerances: String,
         @Query(QUERY_NUMBER) number: Int,
         @Query(QUERY_INSTRUCTIONS_REQUIRED) isInstructionRequired: Boolean,
         @Query(QUERY_SORT) sort: String,

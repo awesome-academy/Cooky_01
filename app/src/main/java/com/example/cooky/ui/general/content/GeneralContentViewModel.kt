@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cooky.base.BaseLoadMoreViewModel
 import com.example.cooky.base.Status
-import com.example.cooky.data.local.model.recipe.Recipe
 import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.data.remote.response.IntroRecipeResponse
 import com.example.cooky.data.repository.IntroRepository
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class GeneralContentViewModel(private val repo: IntroRepository) : BaseLoadMoreViewModel<Recipe>() {
+class GeneralContentViewModel(private val repo: IntroRepository) : BaseLoadMoreViewModel<IntroRecipe>() {
     private val _suggestRecipe = MutableLiveData<IntroRecipe>()
     val suggestRecipe: LiveData<IntroRecipe> get() = _suggestRecipe
 
@@ -26,10 +25,15 @@ class GeneralContentViewModel(private val repo: IntroRepository) : BaseLoadMoreV
     val vietnameseRecipes: LiveData<IntroRecipeResponse> get() = _vietnameseRecipes
 
     override fun loadData() {
+
         viewModelScope.launch {
-            val response = repo.getRandomRecipes(number = 20)
+            val response = repo.searchRandomRecipes(
+                sort = SORT_RANDOM,
+                sortDirection = DIRECTION_DESC,
+                number = NUMBER_RANDOM_QUERY
+            )
             if (response.status == Status.SUCCESS) {
-                onLoadSuccess(response.data?.recipes)
+                onLoadSuccess(response.data?.introRecipes)
             } else {
                 response.message?.let(::setMessage)
             }
@@ -92,6 +96,7 @@ class GeneralContentViewModel(private val repo: IntroRepository) : BaseLoadMoreV
         getMainRecipes()
         getDessertRecipes()
         getVietNameseRecipes()
+        loadData()
     }
 
     companion object {
@@ -100,6 +105,7 @@ class GeneralContentViewModel(private val repo: IntroRepository) : BaseLoadMoreV
         private const val TYPE_MAIN = "main course"
         private const val SORT_RANDOM = "random"
         private const val DIRECTION_DESC = "desc"
+        private const val NUMBER_RANDOM_QUERY = 20
     }
 
 }
