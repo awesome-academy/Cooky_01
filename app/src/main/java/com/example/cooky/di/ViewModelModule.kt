@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { FavoriteViewModel() }
-    viewModel { RecipeViewModel() }
+    viewModel { RecipeViewModel(get()) }
     viewModel { GeneralViewModel() }
     viewModel { GeneralContentViewModel(get()) }
     viewModel { DiscoverViewModel(get()) }

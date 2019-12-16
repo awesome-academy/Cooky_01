@@ -24,3 +24,7 @@ fun View.hideKeyboard() {
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0)
 }
+
+fun View.onShow(isShow: Boolean) {
+    this.visibility = if (isShow) View.VISIBLE else View.GONE
+}
