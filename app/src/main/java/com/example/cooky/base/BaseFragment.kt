@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.example.cooky.util.showToast
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
     protected abstract val layoutResource: Int
     protected abstract val viewModel: VM
     protected lateinit var dataBinding: VB
+    protected var isFirstLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +32,15 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragme
             lifecycleOwner = viewLifecycleOwner
             executePendingBindings()
         }
+        savedInstanceState?.let { isFirstLoaded = it.getBoolean(FIRST_LOADED) }
         setBindingVariables()
         initView()
         initData()
-        observeViewModel()
+        if (!isFirstLoaded) {
+            observeViewModel()
+            isFirstLoaded = true
+        }
+
     }
 
     protected abstract fun initView()
@@ -62,5 +67,19 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragme
     }
 
     open fun hideLoading() {
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(FIRST_LOADED, isFirstLoaded)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let { isFirstLoaded = it.getBoolean(FIRST_LOADED) }
+    }
+
+    companion object {
+        const val FIRST_LOADED = "is first loaded"
     }
 }

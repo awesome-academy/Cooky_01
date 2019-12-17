@@ -25,7 +25,11 @@ abstract class BaseLoadMoreViewModel<Item>() : BaseViewModel() {
 
     abstract fun loadData()
 
-    suspend fun onLoadSuccess(items: List<Item>?) {
+    fun clearData() {
+        _listItem.value = mutableListOf()
+    }
+
+    fun onLoadSuccess(items: List<Item>?) {
         viewModelScope.launch {
             val newList = listItem.value ?: mutableListOf()
             items?.let(newList::addAll)
@@ -34,7 +38,7 @@ abstract class BaseLoadMoreViewModel<Item>() : BaseViewModel() {
         }
     }
 
-    suspend fun onLoadFailed(msg: String) {
+    fun onLoadFailed(msg: String) {
         viewModelScope.launch {
             setMessage(msg)
             _isLoadMore.value = false

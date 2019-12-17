@@ -9,7 +9,7 @@
         android:id="@+id/destination_home"
         android:name="com.example.cooky.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_destination_home_to_destination_recipe"
             app:destination="@id/destination_recipe" />
@@ -23,8 +23,16 @@
 
         <argument
             android:name="recipeId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/destination_nutrient"
+        android:name="com.example.cooky.ui.search.bynutrients.NutrientsSearchFragment"
+        android:label="NutrientsSearchFragment" />
+
+    <action
+        android:id="@+id/action_global_recipe_detail"
+        app:destination="@+id/destination_recipe" />
 </navigation>

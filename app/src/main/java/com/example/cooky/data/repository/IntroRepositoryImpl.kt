@@ -4,6 +4,7 @@ import com.example.cooky.base.BaseResponse
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
+import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.ResponseHandler
 import com.example.cooky.data.remote.api.ApiService
@@ -31,16 +32,18 @@ class IntroRepositoryImpl(
         }
 
     override suspend fun searchRecipesByNutrients(
-        searchOption: SearchOption,
+        searchOption: BasicSearchOption,
         nutrientOption: NutrientOption
     ): BaseResponse<IntroRecipeResponse> =
         try {
             val response = apiService.searchRecipesByNutrients(
                 searchOption.query,
                 searchOption.cuisine,
+                searchOption.type,
                 searchOption.diet,
+                searchOption.Intolerances,
                 searchOption.number,
-                searchOption.readyTime,
+                searchOption.isInstructionRequired,
                 searchOption.sort,
                 searchOption.sortDirection,
                 nutrientOption.minCarb,
@@ -104,7 +107,7 @@ class IntroRepositoryImpl(
         sort: String,
         sortDirection: String
     ): BaseResponse<IntroRecipeResponse> =
-        try{
+        try {
             val response = apiService.searchRandomRecipes(
                 query,
                 cuisine,
@@ -117,7 +120,7 @@ class IntroRepositoryImpl(
                 sortDirection
             )
             responseHandler.handleSuccess(response)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             responseHandler.handleException(e)
         }
 
