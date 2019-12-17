@@ -14,7 +14,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -88,9 +89,9 @@
                 tools:context=".ui.recipe.RecipeFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    setGoneIfLoading="@{viewModel.isLoading}"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    setGoneIfLoading="@{viewModel.isLoading}">
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/textIngredient"
@@ -98,13 +99,13 @@
                         android:layout_height="?actionBarSize"
                         android:background="@android:color/holo_orange_light"
                         android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp_10"
                         android:text="@string/title_ingredient"
                         android:textSize="@dimen/sp_20"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:paddingStart="@dimen/dp_10"
                         tools:ignore="RtlCompat,RtlSymmetry" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -224,15 +225,45 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                     </FrameLayout>
 
+                    <TextView
+                        android:id="@+id/textInstruction"
+                        android:layout_width="0dp"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp_10"
+                        android:text="@string/title_instructions"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/frameGood"
+                        tools:ignore="RtlCompat,RtlSymmetry" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_5"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textInstruction" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 
-            <ProgressBar
-                android:id="@+id/progressBarRecipe"
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/progressLoading"
+                style="@style/AVLoadingIndicatorView.Large"
                 setVisibleIfLoading="@{viewModel.isLoading}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:indicatorColor="@color/colorAccent"
+                app:indicatorName="PacmanIndicator" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

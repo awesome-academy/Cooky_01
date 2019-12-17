@@ -20,4 +20,5 @@
     <string name="title_nutrition">Nutrition</string>
     <string name="title_limit_these">Limit These</string>
     <string name="title_get_enough">Get Enough Of These</string>
+    <string name="title_instructions">Instructions</string>
 </resources>
