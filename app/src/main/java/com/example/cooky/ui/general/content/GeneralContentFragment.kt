@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.cooky.R
 import com.example.cooky.base.BaseFragment
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.databinding.FragmentGeneralContentBinding
 import com.example.cooky.ui.adapter.IntroAdapterHorizontal
 import com.example.cooky.ui.adapter.IntroAdapterVertical
@@ -16,29 +17,22 @@ class GeneralContentFragment :
     BaseFragment<FragmentGeneralContentBinding, GeneralContentViewModel>() {
 
     private var mainNavController: NavController? = null
+    lateinit var suggestIntroRecipe: IntroRecipe
 
     private val dessertAdapter = IntroAdapterHorizontal {
-        mainNavController?.navigate(
-            HomeFragmentDirections.actionDestinationHomeToDestinationRecipe(it.id)
-        )
+        mainNavController?.navigate(HomeFragmentDirections.actionGlobalRecipeDetail(it.id))
     }
 
     private val mainAdapter = IntroAdapterHorizontal {
-        mainNavController?.navigate(
-            HomeFragmentDirections.actionDestinationHomeToDestinationRecipe(it.id)
-        )
+        mainNavController?.navigate(HomeFragmentDirections.actionGlobalRecipeDetail(it.id))
     }
 
     private val vietnameseAdapter = IntroAdapterHorizontal {
-        mainNavController?.navigate(
-            HomeFragmentDirections.actionDestinationHomeToDestinationRecipe(it.id)
-        )
+        mainNavController?.navigate(HomeFragmentDirections.actionGlobalRecipeDetail(it.id))
     }
 
     private val recentAdapter = IntroAdapterVertical {
-        mainNavController?.navigate(
-            HomeFragmentDirections.actionDestinationHomeToDestinationRecipe(it.id)
-        )
+        mainNavController?.navigate(HomeFragmentDirections.actionGlobalRecipeDetail(it.id))
     }
 
     override val layoutResource: Int = R.layout.fragment_general_content
@@ -52,6 +46,11 @@ class GeneralContentFragment :
         recyclerViewRecent.adapter = recentAdapter
         nestedScrollView.setOnScrollChangeListener(viewModel.onScrollListener)
         mainNavController = activity?.findNavController(R.id.nav_host_fragment)
+        imageSuggest.setOnClickListener {
+            mainNavController?.navigate(
+                HomeFragmentDirections.actionGlobalRecipeDetail(suggestIntroRecipe.id)
+            )
+        }
     }
 
     override fun setBindingVariables() {
@@ -69,6 +68,9 @@ class GeneralContentFragment :
             })
             vietnameseRecipes.observe(viewLifecycleOwner, Observer {
                 vietnameseAdapter.submitList(it.introRecipes)
+            })
+            suggestRecipe.observe(viewLifecycleOwner, Observer {
+                suggestIntroRecipe = it
             })
             listItem.observe(viewLifecycleOwner, Observer(recentAdapter::submitList))
             firstLoadData()

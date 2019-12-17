@@ -4,6 +4,7 @@ import com.example.cooky.base.BaseResponse
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
+import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.api.DEFAULT_NUMBER
 import com.example.cooky.data.remote.api.EMPTY_STRING
@@ -16,7 +17,7 @@ interface IntroRepository {
     ): BaseResponse<IntroRecipeResponse>
 
     suspend fun searchRecipesByNutrients(
-        searchOption: SearchOption,
+        searchOption: BasicSearchOption,
         nutrientOption: NutrientOption
     ): BaseResponse<IntroRecipeResponse>
 
@@ -27,9 +28,9 @@ interface IntroRepository {
     suspend fun searchRandomRecipes(
         query: String = EMPTY_STRING,
         cuisine: String = EMPTY_STRING,
+        type: String = EMPTY_STRING,
         diet: String = EMPTY_STRING,
         intolerances: String = EMPTY_STRING,
-        type: String = EMPTY_STRING,
         number: Int = DEFAULT_NUMBER,
         isInstructionRequired: Boolean = true,
         sort: String = EMPTY_STRING,
