@@ -1,7 +1,10 @@
 package com.example.cooky.data.local.model.nutition
 
+import android.os.Parcelable
 import com.example.cooky.data.remote.api.*
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class NutrientOption(
     var minCarb: Int = DEFAULT_MIN_NUTRIENT,
     var maxCarb: Int = DEFAULT_MAX_NUTRIENT,
@@ -27,4 +30,4 @@ data class NutrientOption(
     var maxVitaminE: Int = DEFAULT_MAX_NUTRIENT,
     var minVitaminK: Int = DEFAULT_MIN_NUTRIENT,
     var maxVitaminK: Int = DEFAULT_MAX_NUTRIENT
-)
+) : Parcelable

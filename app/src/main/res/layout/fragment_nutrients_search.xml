@@ -31,7 +31,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginBottom="?attr/actionBarSize">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
@@ -78,5 +79,56 @@
                 app:indicatorName="PacmanIndicator" />
 
         </FrameLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomSheetNutrient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:behavior_peekHeight="?attr/actionBarSize"
+            app:layout_behavior="com.example.cooky.base.LockableBottomSheetBehavior">
+
+            <TextView
+                android:id="@+id/textNutrientOption"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/holo_orange_light"
+                android:gravity="center"
+                android:text="@string/title_nutrients_option"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlCompat,RtlSymmetry" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerNutrientPicker"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/textDone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textNutrientOption" />
+
+            <TextView
+                android:id="@+id/textDone"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/holo_orange_light"
+                android:gravity="center"
+                android:text="@string/title_done"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

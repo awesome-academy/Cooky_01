@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.cooky.util.showToast
 
-abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
+abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     protected abstract val layoutResource: Int
     protected abstract val viewModel: VM
     protected lateinit var dataBinding: VB

@@ -17,7 +17,7 @@ class GeneralContentFragment :
     BaseFragment<FragmentGeneralContentBinding, GeneralContentViewModel>() {
 
     private var mainNavController: NavController? = null
-    lateinit var suggestIntroRecipe: IntroRecipe
+    private lateinit var suggestIntroRecipe: IntroRecipe
 
     private val dessertAdapter = IntroAdapterHorizontal {
         mainNavController?.navigate(HomeFragmentDirections.actionGlobalRecipeDetail(it.id))
@@ -73,7 +73,10 @@ class GeneralContentFragment :
                 suggestIntroRecipe = it
             })
             listItem.observe(viewLifecycleOwner, Observer(recentAdapter::submitList))
-            firstLoadData()
+            if (!isFirstLoaded) {
+                firstLoadData()
+                isFirstLoaded = true
+            }
         }
     }
 }

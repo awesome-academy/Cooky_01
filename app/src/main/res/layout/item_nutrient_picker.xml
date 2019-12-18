@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.cooky.ui.search.bynutrients.NutrientPicker" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/textEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{String.valueOf(item.end)}"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/textStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{item.start+` - `}"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/textTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.title +`(g) : `}"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <io.apptik.widget.MultiSlider
+            android:id="@+id/rangePicker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitle"
+            app:thumbColor="@android:color/holo_blue_dark"
+            app:rangeColor="@android:color/holo_blue_light"
+            app:scaleMax="1000"
+            app:scaleMin="0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

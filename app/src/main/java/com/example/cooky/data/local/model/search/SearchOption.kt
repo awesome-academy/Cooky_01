@@ -11,6 +11,6 @@ data class SearchOption(
     var intolerances: String = EMPTY_STRING,
     var number: Int = DEFAULT_NUMBER,
     var readyTime: Int = DEFAULT_READY_TIME,
-    var sort: String = EMPTY_STRING,
-    var sortDirection: String = EMPTY_STRING
+    var sort: String = SORT_RANDOM,
+    var sortDirection: String = DIRECTION_DESC
 )
