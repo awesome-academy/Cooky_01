@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
                 childFragmentManager
             )
         }
+        viewPagerHome.swipeEnabled = false
     }
 
     companion object {
