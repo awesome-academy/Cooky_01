@@ -22,6 +22,8 @@
     <string name="title_limit_these">Limit These</string>
     <string name="title_get_enough">Get Enough Of These</string>
     <string name="title_instructions">Instructions</string>
+    <string name="title_add_favorite">Added to favorite</string>
+    <string name="title_remove_favorite">Removed to favorite</string>
     <string name="title_nutrients_option">Nutrients Option</string>
     <string name="title_done">Done</string>
     <string name="text_max_value_nutrient">100</string>

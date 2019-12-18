@@ -18,6 +18,7 @@ import com.example.cooky.ui.adapter.IngredientAdapter
 import com.example.cooky.ui.adapter.StepAdapter
 import com.example.cooky.util.onShow
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_recipe.*
 import kotlinx.android.synthetic.main.fragment_recipe.btnArrowDownGood
 import kotlinx.android.synthetic.main.fragment_recipe.recyclerBadNutrition
@@ -74,7 +75,12 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
             }
         }
         floatingLike.setOnClickListener {
-            viewModel.onCheckedFavorite()
+            viewModel.handleSaveFavorite()
+            viewModel.isFavorite.value?.let {
+                val msg = if (it) getString(R.string.title_add_favorite)
+                else getString(R.string.title_remove_favorite)
+                Snackbar.make(coordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -147,6 +153,7 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
                 stepAdapter.submitList(it.analyzedInstructions[0].steps)
             })
             isFavorite.observe(viewLifecycleOwner, Observer {
+
                 floatingLike.setImageResource(
                     if (it) R.drawable.ic_favorite_black_24dp
                     else R.drawable.ic_favorite_border_black_24dp

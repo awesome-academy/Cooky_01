@@ -15,7 +15,11 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
     private val _recipe = MutableLiveData<Recipe>()
     val recipe: LiveData<Recipe> get() = _recipe
 
-    private val _isFavorite = MutableLiveData<Boolean>().apply { value = false }
+    private var isOnLoadingDatabase = false
+
+    private var currentRecipeId = DEFAULT_RECIPE_ID
+
+    private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     private val _nutrition = MutableLiveData<Nutrition>()
@@ -37,20 +41,71 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
         viewModelScope.launch {
             val response = repo.getRecipeNutrition(id)
             if (response.status == Status.SUCCESS) {
-                _nutrition.value = response.data
+                val nutritionResponse = response.data
+                nutritionResponse?.nutritionId = id
+                _nutrition.value = nutritionResponse
             } else {
                 response.message?.let(::setMessage)
             }
         }
     }
 
-    fun loadData(idRecipe: Int) {
+    fun loadData(id: Int) {
         setOnLoading()
-        getRecipe(idRecipe)
-        getNutrition(idRecipe)
+        currentRecipeId = id
+        viewModelScope.launch {
+            val localRecipe = repo.getRecipeById(id)
+            val localNutrition = repo.getNutritionById(id)
+            setCloseLoading()
+            if (localRecipe != null && localNutrition != null) {
+                _recipe.value = localRecipe
+                _nutrition.value = localNutrition
+                _isFavorite.value = true
+            } else {
+                _isFavorite.value = false
+                getRecipe(id)
+                getNutrition(id)
+                setOnLoading()
+            }
+        }
     }
 
-    fun onCheckedFavorite() {
-        _isFavorite.value = _isFavorite.value?.not()
+    fun handleSaveFavorite(){
+        if(!isOnLoadingDatabase) {
+            isFavorite.value?.let {
+                if (it)
+                    removeFromFavorite()
+                else
+                    addToFavorite()
+            }
+        }
+    }
+
+    private fun addToFavorite() {
+        if (!isOnLoadingDatabase) {
+            _isFavorite.value = true
+            isOnLoadingDatabase = true
+            viewModelScope.launch {
+                recipe.value?.let { repo.insertRecipe(it) }
+                nutrition.value?.let { repo.insertNutrition(it) }
+                isOnLoadingDatabase = false
+            }
+        }
+    }
+
+    private fun removeFromFavorite() {
+        if (!isOnLoadingDatabase) {
+            _isFavorite.value = false
+            isOnLoadingDatabase = true
+            viewModelScope.launch {
+                repo.deleteRecipeById(currentRecipeId)
+                repo.deleteNutritionByID(currentRecipeId)
+                isOnLoadingDatabase = false
+            }
+        }
+    }
+
+    companion object{
+        const val DEFAULT_RECIPE_ID = 0
     }
 }

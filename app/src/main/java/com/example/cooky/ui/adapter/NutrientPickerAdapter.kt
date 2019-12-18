@@ -1,7 +1,6 @@
 package com.example.cooky.ui.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cooky.R
 import com.example.cooky.base.BaseRecyclerViewAdapter
@@ -20,7 +19,6 @@ class NutrientPickerAdapter(
         binding.apply {
             this.item = item
             if (item.title == CALORIES) {
-                Log.d("asd", "is calo")
                 textTitle.text = "${item.title}$TEXT_COLON"
             }
             rangePicker.apply {

@@ -118,11 +118,9 @@ class TypeConverter {
     fun fromGoods(listGood: List<Good>): String {
         val result = StringBuilder()
         listGood.forEach {
-            listGood.forEach {
                 result.append(UNDERSTROKE).append(it.amount)
                     .append(ASTERISK).append(it.percentOfDailyNeeds)
                     .append(ASTERISK).append(it.title)
-            }
         }
         return result.substring(1).toString()
     }
@@ -151,7 +149,6 @@ class TypeConverter {
             result.append(UNDERSTROKE).append(it.amount)
                 .append(ASTERISK).append(it.percentOfDailyNeeds)
                 .append(ASTERISK).append(it.title)
-
         }
         return result.substring(1).toString()
     }
