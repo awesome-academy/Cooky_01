@@ -48,4 +48,7 @@
         <item>VitaminE</item>
         <item>VitaminK</item>
     </string-array>
+    <string name="title_recently_viewed">RECENTLY VIEWED</string>
+    <string name="title_like">LIKE</string>
+    <string name="title_my_favorite">My Favorite</string>
 </resources>

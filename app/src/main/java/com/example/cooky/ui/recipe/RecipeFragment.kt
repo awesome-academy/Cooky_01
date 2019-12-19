@@ -77,8 +77,11 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
         floatingLike.setOnClickListener {
             viewModel.handleSaveFavorite()
             viewModel.isFavorite.value?.let {
-                val msg = if (it) getString(R.string.title_add_favorite)
-                else getString(R.string.title_remove_favorite)
+                val msg = if (it) {
+                    getString(R.string.title_add_favorite)
+                } else {
+                    getString(R.string.title_remove_favorite)
+                }
                 Snackbar.make(coordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
             }
         }
