@@ -4,6 +4,7 @@ import com.example.cooky.base.BaseResponse
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
+import com.example.cooky.data.local.model.recipe.Recipe
 import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.api.DEFAULT_NUMBER
@@ -51,4 +52,6 @@ interface IntroRepository {
         query: String = EMPTY_STRING,
         number: Int = DEFAULT_NUMBER
     ): BaseResponse<List<QueryIngredientSearch>>
+
+    suspend fun getManyRecipeByIds(ids: String): BaseResponse<List<Recipe>>
 }

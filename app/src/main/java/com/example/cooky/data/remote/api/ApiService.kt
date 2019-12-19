@@ -96,6 +96,11 @@ interface ApiService {
         @Path(QUERY_ID) id: Int
     ): Recipe
 
+    @GET("$PATH_RECIPE/$PATH_INFORMATIONBULK")
+    suspend fun getManyRecipesByIds(
+        @Query(QUERY_IDS) ids: String
+    ): List<Recipe>
+
     @GET("$PATH_RECIPE/$PATH_AUTOCOMPLETE")
     suspend fun getAutocompleteRecipeSearch(
         @Query(QUERY_QUERY) query: String,

@@ -14,7 +14,8 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_background">
+        android:background="@color/color_background"
+        tools:context=".ui.favorite.FavoriteFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -46,6 +47,7 @@
                     style="@style/RecipeTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_20"
                     android:text="@string/title_recently_viewed"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +58,7 @@
                     android:id="@+id/recyclerRecent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_10"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -68,6 +71,7 @@
                     style="@style/RecipeTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_20"
                     android:text="@string/title_like"
                     app:layout_constraintEnd_toEndOf="parent"
