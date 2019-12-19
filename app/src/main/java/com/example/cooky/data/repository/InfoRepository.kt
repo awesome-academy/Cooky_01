@@ -27,7 +27,7 @@ interface InfoRepository {
 
     suspend fun deleteNutritionByID(idNutrition: Int)
 
-    suspend fun getNutritionById(idNutrition: Int): Nutrition
+    suspend fun getNutritionById(idNutrition: Int): Nutrition?
 
     suspend fun getAllNutritions(): List<Nutrition>
 
@@ -37,7 +37,7 @@ interface InfoRepository {
 
     suspend fun deleteRecipeById(idRecipe: Int)
 
-    suspend fun getRecipeById(idRecipe: Int): Recipe
+    suspend fun getRecipeById(idRecipe: Int): Recipe?
 
     suspend fun getAllRecipes(): List<Recipe>
 

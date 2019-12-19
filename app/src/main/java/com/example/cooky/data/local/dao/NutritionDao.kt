@@ -18,7 +18,7 @@ interface NutritionDao {
     suspend fun insertNutrition(nutrition: Nutrition)
 
     @Query("SELECT * FROM nutrition WHERE nutritionId = :id")
-    suspend fun getNutritionById(id: Int): Nutrition
+    suspend fun getNutritionById(id: Int): Nutrition?
 
     @Query("DELETE FROM nutrition WHERE nutritionId = :id")
     suspend fun deleteNutritionById(id: Int)
