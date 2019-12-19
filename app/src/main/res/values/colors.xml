@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="color_background">#F3F3F3</color>
     <color name="color_background_dark">#80161313</color>
+    <color name="color_blue_bright">#8BDEE7</color>
+    <color name="color_normal_track">#AAAAAA</color>
 </resources>

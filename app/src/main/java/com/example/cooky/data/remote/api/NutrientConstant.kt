@@ -1,5 +1,12 @@
 package com.example.cooky.data.remote.api
 
+const val CALORIES = "Calories"
+const val PROTEIN = "Protein"
+const val CALCIUM = "Calcium"
+const val SUGAR = "Sugar"
+const val CHOLESTEROL = "Cholesterol"
+const val FAT = "FAT"
+const val CARBOHYDRATES = "Carbohydrates"
 const val QUERY_MIN_CARB = "minCarbs"
 const val QUERY_MAX_CARB = "maxCarbs"
 const val QUERY_MIN_PROTEIN = "minProtein"
@@ -32,3 +39,5 @@ const val DEFAULT_MIN_NUTRIENT = 0
 const val DEFAULT_MAX_NUTRIENT = 100
 const val DEFAULT_MIN_CALO = 50
 const val DEFAULT_MAX_CALO = 1000
+const val SORT_RANDOM = "random"
+const val DIRECTION_DESC = "desc"

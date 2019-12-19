@@ -11,22 +11,22 @@ import androidx.navigation.Navigation
 import com.example.cooky.R
 import com.example.cooky.base.BaseFragment
 import com.example.cooky.base.SetupDrawer
+import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.databinding.FragmentGeneralBinding
 import com.example.cooky.util.hideKeyboard
 import com.example.cooky.util.setVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_general.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
-class GeneralFragment() : BaseFragment<FragmentGeneralBinding, GeneralViewModel>() {
+class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding, GeneralViewModel>() {
 
     lateinit var setupDrawer: SetupDrawer
     lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     lateinit var searchView: SearchView
     lateinit var navController: NavController
     private var isOnDiscoverFragment = false
-
+    private var searchOption = BasicSearchOption()
     override val layoutResource: Int = R.layout.fragment_general
 
     override val viewModel: GeneralViewModel by viewModel()
@@ -69,6 +69,8 @@ class GeneralFragment() : BaseFragment<FragmentGeneralBinding, GeneralViewModel>
         itemSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
                 bottomSheetBehavior.setVisible(true)
+                navController.navigate(R.id.destination_discover)
+                isOnDiscoverFragment = true
                 return true
             }
 
@@ -87,8 +89,9 @@ class GeneralFragment() : BaseFragment<FragmentGeneralBinding, GeneralViewModel>
                 itemLabel.setVisible(true)
                 bottomSheetBehavior.setVisible(false)
                 searchView.hideKeyboard()
-                navController.navigate(R.id.destination_discover)
                 isOnDiscoverFragment = true
+                query?.let { searchOption.query = it }
+                viewModel.searchRecipe(searchOption)
                 return true
             }
 
@@ -102,7 +105,7 @@ class GeneralFragment() : BaseFragment<FragmentGeneralBinding, GeneralViewModel>
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetGeneral).apply {
             isHideable = true
             setVisible(false)
-            setBottomSheetCallback(object :
+            addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 }

@@ -22,4 +22,28 @@
     <string name="title_limit_these">Limit These</string>
     <string name="title_get_enough">Get Enough Of These</string>
     <string name="title_instructions">Instructions</string>
+    <string name="title_nutrients_option">Nutrients Option</string>
+    <string name="title_done">Done</string>
+    <string name="text_max_value_nutrient">100</string>
+    <string name="text_min_value_nutrient">0 -</string>
+    <string name="title_calo">Calories :</string>
+    <string name="text_calo_range">50 - 1000</string>
+
+    <string-array name="array_nutrients">
+        <item>Calories</item>
+        <item>Protein</item>
+        <item>Calcium</item>
+        <item>Sugar</item>
+        <item>Cholesterol</item>
+        <item>FAT</item>
+        <item>Carbohydrates</item>
+    </string-array>
+
+    <string-array name="vitamin">
+        <item>VitaminA</item>
+        <item>VitaminC</item>
+        <item>VitaminD</item>
+        <item>VitaminE</item>
+        <item>VitaminK</item>
+    </string-array>
 </resources>

@@ -17,8 +17,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expanded="false">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarGeneral"
@@ -51,8 +50,16 @@
             android:id="@+id/bottomSheetGeneral"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="#00ffffff"
             app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <FrameLayout
+                android:id="@+id/frameSpace"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#ff00"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

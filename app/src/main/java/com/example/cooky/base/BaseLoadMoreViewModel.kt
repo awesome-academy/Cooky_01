@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-abstract class BaseLoadMoreViewModel<Item>() : BaseViewModel() {
+abstract class BaseLoadMoreViewModel<Item> : BaseViewModel() {
 
     private val _listItem = MutableLiveData<MutableList<Item>>()
     val listItem: LiveData<MutableList<Item>> get() = _listItem
@@ -14,7 +14,7 @@ abstract class BaseLoadMoreViewModel<Item>() : BaseViewModel() {
     val isLoadMore: LiveData<Boolean> get() = _isLoadMore
 
     val onScrollListener = object : ScrollingEndNestedScrollView() {
-        override val distanceToBottom: Int = 0
+        override val distanceToBottom: Int = RANGE_LOADMORE
         override fun loadMore() {
             if (isLoadMore.value == false) {
                 _isLoadMore.value = true
@@ -43,5 +43,9 @@ abstract class BaseLoadMoreViewModel<Item>() : BaseViewModel() {
             setMessage(msg)
             _isLoadMore.value = false
         }
+    }
+
+    companion object {
+        private const val RANGE_LOADMORE = 500
     }
 }
