@@ -8,11 +8,4 @@
         android:title="@string/option_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
-
-    <item
-        android:id="@+id/option_change_label"
-        android:icon="@drawable/ic_label_outline_black_24dp"
-        android:title="@string/option_label"
-        android:visible="false"
-        app:showAsAction="always" />
 </menu>

@@ -15,6 +15,7 @@ class DiscoverViewModel(private val repo: IntroRepository) : BaseLoadMoreViewMod
     override fun loadData() = searchRecipe()
 
     fun startSearching(option: BasicSearchOption){
+        clearData()
         optionCurrent = option
         setOnLoading()
         searchRecipe()

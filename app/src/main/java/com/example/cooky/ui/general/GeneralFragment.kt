@@ -6,27 +6,37 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.cooky.R
 import com.example.cooky.base.BaseFragment
+import com.example.cooky.base.LockableBottomSheetBehavior
 import com.example.cooky.base.SetupDrawer
 import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.databinding.FragmentGeneralBinding
+import com.example.cooky.ui.adapter.QuerySearchAdapter
 import com.example.cooky.util.hideKeyboard
 import com.example.cooky.util.setVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_general.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding, GeneralViewModel>() {
+class GeneralFragment private constructor() :
+    BaseFragment<FragmentGeneralBinding, GeneralViewModel>() {
 
-    lateinit var setupDrawer: SetupDrawer
-    lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    lateinit var searchView: SearchView
-    lateinit var navController: NavController
+    private lateinit var setupDrawer: SetupDrawer
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var searchView: SearchView
+    private lateinit var navController: NavController
     private var isOnDiscoverFragment = false
     private var searchOption = BasicSearchOption()
+
+    private val queryAdapter = QuerySearchAdapter {
+        searchOption.query = it.title
+        searchView.setQuery(it.title, true)
+    }
+
     override val layoutResource: Int = R.layout.fragment_general
 
     override val viewModel: GeneralViewModel by viewModel()
@@ -37,6 +47,7 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
         activity?.let {
             navController = Navigation.findNavController(it, R.id.nav_host_fragment_general)
         }
+        recyclerAutoComplete.adapter = queryAdapter
     }
 
     private fun initToolbar() {
@@ -47,36 +58,20 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
             setNavigationOnClickListener {
                 setupDrawer.onShowDrawer()
             }
-            setOnMenuItemClickListener {
-                if (it.itemId == R.id.option_change_label) {
-                    if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                        searchView.hideKeyboard()
-                        bottomSheetBehavior.setVisible(true)
-                    } else {
-                        bottomSheetBehavior.setVisible(false)
-                    }
-                }
-                true
-            }
         }
-
         initMenu(toolbarGeneral.menu)
     }
 
     private fun initMenu(menu: Menu) {
         val itemSearch = menu.findItem(R.id.option_search)
-        val itemLabel = menu.findItem(R.id.option_change_label)
         itemSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-                bottomSheetBehavior.setVisible(true)
                 navController.navigate(R.id.destination_discover)
                 isOnDiscoverFragment = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                bottomSheetBehavior.setVisible(false)
-                itemLabel.setVisible(false)
                 if (isOnDiscoverFragment)
                     navController.popBackStack(R.id.destination_discover, true)
                 return true
@@ -86,7 +81,6 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
         searchView = itemSearch.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                itemLabel.setVisible(true)
                 bottomSheetBehavior.setVisible(false)
                 searchView.hideKeyboard()
                 isOnDiscoverFragment = true
@@ -96,6 +90,15 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    if (it.isNotEmpty() && it[it.length - 1] == CHAR_SPACE) {
+                        viewModel.getAutoCompleteQuerys(it)
+
+                    } else {
+                        bottomSheetBehavior.setVisible(false)
+                        queryAdapter.submitList(mutableListOf())
+                    }
+                }
                 return true
             }
         })
@@ -111,10 +114,20 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                        bottomSheetBehavior.setVisible(true)
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        (bottomSheetBehavior as? LockableBottomSheetBehavior)?.swipeEnabled = false
                     }
                 }
+            })
+        }
+    }
+
+    override fun observeViewModel() {
+        super.observeViewModel()
+        viewModel.apply {
+            autoCompleteQuerys.observe(viewLifecycleOwner, Observer {
+                queryAdapter.submitList(it)
+                bottomSheetBehavior.setVisible(true)
             })
         }
     }
@@ -134,5 +147,6 @@ class GeneralFragment private constructor(): BaseFragment<FragmentGeneralBinding
 
     companion object {
         fun newInstance() = GeneralFragment()
+        private const val CHAR_SPACE = ' '
     }
 }
