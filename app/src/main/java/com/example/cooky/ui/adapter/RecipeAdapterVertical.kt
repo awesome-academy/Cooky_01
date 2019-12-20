@@ -4,13 +4,10 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.cooky.R
 import com.example.cooky.base.BaseRecyclerViewAdapter
 import com.example.cooky.data.local.model.recipe.Recipe
-import com.example.cooky.data.local.model.search.IntroRecipe
-import com.example.cooky.databinding.ItemIntroHorizontalBinding
-import com.example.cooky.databinding.ItemIntroVeritcalBinding
 import com.example.cooky.databinding.ItemRecipeVerticalBinding
 
 class RecipeAdapterVertical(
-    private var onItemClick: (Recipe) -> Unit
+    private val onItemClick: (Recipe) -> Unit
 ) : BaseRecyclerViewAdapter<Recipe, ItemRecipeVerticalBinding>(DiffUtilCallback()) {
 
     override val layoutResource: Int = R.layout.item_recipe_vertical

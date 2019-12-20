@@ -18,6 +18,10 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutHome"
         android:background="@android:color/holo_blue_light"
+        app:tabTextColor="@color/color_text_tablayout"
+        app:tabSelectedTextColor="@android:color/black"
+        app:tabRippleColor="@color/color_ripple_tablayout"
+        app:tabIndicatorColor="@color/color_indicator_tablayout"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
