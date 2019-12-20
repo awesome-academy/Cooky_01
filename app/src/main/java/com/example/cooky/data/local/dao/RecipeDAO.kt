@@ -25,4 +25,10 @@ interface RecipeDAO {
 
     @Query("SELECT recipeId FROM recipe")
     suspend fun getAllRecipeIds(): List<Int>
+
+    @Query("SELECT * FROM recipe LIMIT :from,:to")
+    suspend fun getRecipeByRange(from: Int, to: Int): List<Recipe>
+
+    @Query("SELECT COUNT(*) FROM recipe")
+    suspend fun getRecipeCount(): Int
 }

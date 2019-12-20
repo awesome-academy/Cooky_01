@@ -7,6 +7,7 @@ import com.example.cooky.R
 import com.example.cooky.base.BaseFragment
 import com.example.cooky.databinding.FragmentFavoriteBinding
 import com.example.cooky.ui.adapter.RecentRecipeAdapter
+import com.example.cooky.ui.adapter.RecipeAdapterVertical
 import com.example.cooky.ui.home.HomeFragmentDirections
 import com.example.cooky.util.RECENTLY_ID
 import com.example.cooky.util.STRING_NULL
@@ -28,6 +29,12 @@ class FavoriteFragment private constructor() :
         )
     }
 
+    private val likeAdapter = RecipeAdapterVertical {
+        parentFragment?.findNavController()?.navigate(
+            HomeFragmentDirections.actionGlobalRecipeDetail(it.recipeId)
+        )
+    }
+
     private val sharedPreferences: SharedPreferences by inject()
     override val viewModel: FavoriteViewModel by viewModel()
 
@@ -35,21 +42,25 @@ class FavoriteFragment private constructor() :
         initRecyclerView()
         getRecentlyRecipeIds()
         observeDataViewModel()
+        nestedScrollView.setOnScrollChangeListener(viewModel.onScrollListener)
     }
 
     private fun initRecyclerView() {
         recyclerRecent.adapter = recentAdapter
+        recyclerViewLike.adapter = likeAdapter
     }
 
     private fun getRecentlyRecipeIds() {
         val recentlyIdsString = sharedPreferences.getString(RECENTLY_ID, STRING_NULL)
-        val newRecentlyIds = stringToListInteger(recentlyIdsString!!)
-        if (recentlyIds.isEmpty()) {
-            recentlyIds.addAll(newRecentlyIds)
-            viewModel.getRecentlyRecipes(recentlyIds)
-        } else if (recentlyIds[0] != newRecentlyIds[0]) {
-            recentlyIds = newRecentlyIds.toMutableList()
-            viewModel.getRecentlyRecipes(recentlyIds)
+        if (recentlyIdsString != STRING_NULL) {
+            val newRecentlyIds = stringToListInteger(recentlyIdsString!!)
+            if (recentlyIds.isEmpty()) {
+                recentlyIds.addAll(newRecentlyIds)
+                viewModel.getRecentlyRecipes(recentlyIds)
+            } else if (recentlyIds[0] != newRecentlyIds[0]) {
+                recentlyIds = newRecentlyIds.toMutableList()
+                viewModel.getRecentlyRecipes(recentlyIds)
+            }
         }
     }
 
@@ -61,7 +72,16 @@ class FavoriteFragment private constructor() :
         super.observeViewModel()
         viewModel.apply {
             recentlyRecipe.observe(viewLifecycleOwner, Observer(recentAdapter::submitList))
+            listItem.observe(viewLifecycleOwner, Observer {
+                likeAdapter.submitList(it)
+                likeAdapter.notifyDataSetChanged()
+            })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllLocalRecipes()
     }
 
     companion object {

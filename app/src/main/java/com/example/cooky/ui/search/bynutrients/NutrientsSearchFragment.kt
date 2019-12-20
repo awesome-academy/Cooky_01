@@ -17,6 +17,7 @@ import com.example.cooky.data.remote.api.*
 import com.example.cooky.databinding.FragmentNutrientsSearchBinding
 import com.example.cooky.ui.adapter.IntroAdapterVertical
 import com.example.cooky.ui.adapter.NutrientPickerAdapter
+import com.example.cooky.util.*
 import com.example.cooky.util.hideKeyboard
 import com.example.cooky.util.setVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -57,14 +58,15 @@ class NutrientsSearchFragment :
         searchOption.apply {
             sort = SORT_RANDOM
             sortDirection = DIRECTION_DESC
-            number = QUERY_NUMBER
+            number = QUERY_NUMBER_DEFAULT
         }
         nestedScrollView.setOnScrollChangeListener(viewModel.onScrollListener)
+        obServeViewModelFavorite()
     }
 
     private fun initBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetNutrient).apply {
-            setBottomSheetCallback(object :
+            addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 }
@@ -226,23 +228,12 @@ class NutrientsSearchFragment :
         dataBinding.viewModel = viewModel
     }
 
-    override fun observeViewModel() {
-        super.observeViewModel()
-        viewModel.apply {
-            listItem.observe(viewLifecycleOwner, Observer(recipeAdapter::submitList))
-        }
+    private fun obServeViewModelFavorite() {
+        viewModel.listItem.observe(viewLifecycleOwner, Observer(recipeAdapter::submitList))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(NUTRIENT_OPTION, nutrientOption)
-    }
-
-    companion object {
-        private const val SORT_RANDOM = "random"
-        private const val DIRECTION_DESC = "desc"
-        private const val QUERY_NUMBER = 20
-        const val FIRST_THUMP_INDEX = 0
-        private const val NUTRIENT_OPTION = "nutrient option"
     }
 }
