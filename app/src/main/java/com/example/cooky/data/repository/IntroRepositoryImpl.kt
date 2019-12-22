@@ -4,6 +4,7 @@ import com.example.cooky.base.BaseResponse
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
+import com.example.cooky.data.local.model.recipe.Recipe
 import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.ResponseHandler
@@ -153,6 +154,14 @@ class IntroRepositoryImpl(
     ): BaseResponse<List<QueryIngredientSearch>> =
         try {
             val response = apiService.getAutoCompleteIngredientSearch(query, number)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
+
+    override suspend fun getManyRecipeByIds(ids: String): BaseResponse<List<Recipe>> =
+        try {
+            val response = apiService.getManyRecipesByIds(ids)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             responseHandler.handleException(e)

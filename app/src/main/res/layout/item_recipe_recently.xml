@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.cooky.data.local.model.recipe.Recipe" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp_20"
+        app:cardCornerRadius="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        tools:targetApi="lollipop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/itemRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageRecipe"
+                loadBigImage="@{item.image}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textTitleRecipe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/color_background_dark"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="@{item.title}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imageRecipe"
+                app:layout_constraintEnd_toEndOf="@id/imageRecipe"
+                app:layout_constraintStart_toStartOf="@id/imageRecipe"
+                app:layout_constraintTop_toTopOf="@id/imageRecipe" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>
