@@ -76,4 +76,9 @@ class InfoRepositoryImpl(
     override suspend fun getAllRecipes() = recipeDAO.getRecipeList()
 
     override suspend fun getAllRecipeIds() = recipeDAO.getAllRecipeIds()
+
+    override suspend fun getRecipesByRange(from: Int, to: Int) =
+        recipeDAO.getRecipeByRange(from, to)
+
+    override suspend fun getRecipeCount() = recipeDAO.getRecipeCount()
 }

@@ -42,4 +42,8 @@ interface InfoRepository {
     suspend fun getAllRecipes(): List<Recipe>
 
     suspend fun getAllRecipeIds(): List<Int>
+
+    suspend fun getRecipesByRange(from: Int, to: Int): List<Recipe>
+
+    suspend fun getRecipeCount(): Int
 }
