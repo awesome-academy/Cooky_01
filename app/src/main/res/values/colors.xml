@@ -10,4 +10,5 @@
     <color name="color_text_tablayout">#5A5959</color>
     <color name="color_ripple_tablayout">#2881CB</color>
     <color name="color_indicator_tablayout">#066795</color>
+    <color name="color_red_monza">#CF000F</color>
 </resources>

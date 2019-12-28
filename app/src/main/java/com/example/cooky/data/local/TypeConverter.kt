@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.example.cooky.data.local.model.nutition.Bad
 import com.example.cooky.data.local.model.nutition.Good
 import com.example.cooky.data.local.model.recipe.*
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.StringBuilder
@@ -118,9 +119,9 @@ class TypeConverter {
     fun fromGoods(listGood: List<Good>): String {
         val result = StringBuilder()
         listGood.forEach {
-                result.append(UNDERSTROKE).append(it.amount)
-                    .append(ASTERISK).append(it.percentOfDailyNeeds)
-                    .append(ASTERISK).append(it.title)
+            result.append(UNDERSTROKE).append(it.amount)
+                .append(ASTERISK).append(it.percentOfDailyNeeds)
+                .append(ASTERISK).append(it.title)
         }
         return result.substring(1).toString()
     }
@@ -151,6 +152,34 @@ class TypeConverter {
                 .append(ASTERISK).append(it.title)
         }
         return result.substring(1).toString()
+    }
+
+    @TypeConverter
+    fun fromMeals(listIntro: List<IntroRecipe>): String {
+        val result = StringBuilder()
+        listIntro.forEach {
+            result.append(UNDERSTROKE).append(it.id)
+                .append(ASTERISK).append(it.title)
+                .append(ASTERISK).append(it.image)
+        }
+        return result.substring(1).toString()
+    }
+
+    @TypeConverter
+    fun fromStringToMeals(string: String): List<IntroRecipe> {
+        val result = mutableListOf<IntroRecipe>()
+        val listIntroString = string.split(UNDERSTROKE)
+        listIntroString.forEach {
+            val introString = it.split(ASTERISK)
+            result.add(
+                IntroRecipe(
+                    id = introString[0].toInt(),
+                    title = introString[1],
+                    image = introString[2]
+                )
+            )
+        }
+        return result
     }
 
     companion object {

@@ -41,3 +41,4 @@ const val DEFAULT_MIN_CALO = 50
 const val DEFAULT_MAX_CALO = 1000
 const val SORT_RANDOM = "random"
 const val DIRECTION_DESC = "desc"
+const val TIME_FRAME_DAY = "day"

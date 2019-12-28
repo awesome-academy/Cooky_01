@@ -13,8 +13,9 @@ val sourceModule = module {
     single { AppDatabase.getInstance(androidContext()) }
     single { AppDatabase.getInstance(get()).nutritionDAO() }
     single { AppDatabase.getInstance(get()).recipeDAO() }
+    single { AppDatabase.getInstance(get()).meanPlanDAO() }
     single<InfoRepository> { InfoRepositoryImpl(get(), get(), get(), get()) }
-    single<IntroRepository> { IntroRepositoryImpl(get(), get()) }
+    single<IntroRepository> { IntroRepositoryImpl(get(), get(), get()) }
     single<SharedPreferences> {
         androidContext().getSharedPreferences(
             SHARED_PREFERENCES_NAME,

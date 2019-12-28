@@ -174,152 +174,197 @@
                     app:strokeColor="@android:color/holo_blue_light"
                     tools:targetApi="lollipop" />
 
-                <TextView
-                    android:id="@+id/textNutrition"
-                    style="@style/RecipeTitle"
+                <ProgressBar
+                    android:id="@+id/progressCreateMealPlan"
+                    setVisibleIfLoading="@{viewModel.isLoading}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:text="@string/title_nutrition"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btnCreatePlan" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineOne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
-
-                <TextView
-                    android:id="@+id/textMealCalo"
-                    style="@style/OptionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textNutrition" />
-
-                <TextView
-                    android:id="@+id/textMealCarb"
-                    style="@style/OptionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    app:layout_constraintStart_toStartOf="@id/guidelineOne"
-                    app:layout_constraintTop_toBottomOf="@id/textNutrition" />
-
-                <TextView
-                    android:id="@+id/textMealFat"
-                    style="@style/OptionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    app:layout_constraintStart_toStartOf="@id/guidelineOne"
-                    app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
-
-                <TextView
-                    android:id="@+id/textMealProtein"
-                    style="@style/OptionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
-
-                <TextView
-                    android:id="@+id/textBreakfast"
-                    style="@style/RecipeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/title_breakfast"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textMealProtein" />
-
-                <ImageView
-                    android:id="@+id/imageBreakfast"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutMealPlan"
+                    setVisibleIfLoading="@{viewModel.isCreatedMealPlan}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textBreakfast"
-                    tools:ignore="ContentDescription" />
+                    app:layout_constraintTop_toBottomOf="@id/btnCreatePlan">
 
-                <TextView
-                    android:id="@+id/textTitleBreakfast"
-                    style="@style/TextTitleRecipeLarge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/imageBreakfast"
-                    app:layout_constraintEnd_toEndOf="@id/imageBreakfast"
-                    app:layout_constraintStart_toStartOf="@id/imageBreakfast"
-                    app:layout_constraintTop_toTopOf="@id/imageBreakfast" />
+                    <TextView
+                        android:id="@+id/textNutrition"
+                        style="@style/RecipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:text="@string/title_nutrition"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textLunch"
-                    style="@style/RecipeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/title_lunch"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageBreakfast" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
 
-                <ImageView
-                    android:id="@+id/imageLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textLunch"
-                    tools:ignore="ContentDescription" />
+                    <TextView
+                        android:id="@+id/textMealCalo"
+                        style="@style/OptionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`Calories: ` + viewModel.mealPlan.nutrient.calories}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textNutrition" />
 
-                <TextView
-                    android:id="@+id/textTitleLunch"
-                    style="@style/TextTitleRecipeLarge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/imageLunch"
-                    app:layout_constraintEnd_toEndOf="@id/imageLunch"
-                    app:layout_constraintStart_toStartOf="@id/imageLunch"
-                    app:layout_constraintTop_toTopOf="@id/imageLunch" />
+                    <TextView
+                        android:id="@+id/textMealCarb"
+                        style="@style/OptionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:text="@{`Carbs: `+viewModel.mealPlan.nutrient.carbohydrates}"
+                        app:layout_constraintStart_toStartOf="@id/guidelineOne"
+                        app:layout_constraintTop_toBottomOf="@id/textNutrition" />
 
-                <TextView
-                    android:id="@+id/textDinner"
-                    style="@style/RecipeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/title_breakfast"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageLunch" />
+                    <TextView
+                        android:id="@+id/textMealFat"
+                        style="@style/OptionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:text="@{`FAT: `+viewModel.mealPlan.nutrient.fat}"
+                        app:layout_constraintStart_toStartOf="@id/guidelineOne"
+                        app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
 
-                <ImageView
-                    android:id="@+id/imageDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textDinner"
-                    tools:ignore="ContentDescription" />
+                    <TextView
+                        android:id="@+id/textMealProtein"
+                        style="@style/OptionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`Protein: `+viewModel.mealPlan.nutrient.protein}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
 
-                <TextView
-                    android:id="@+id/textTitleDinner"
-                    style="@style/TextTitleRecipeLarge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/imageDinner"
-                    app:layout_constraintEnd_toEndOf="@id/imageDinner"
-                    app:layout_constraintStart_toStartOf="@id/imageDinner"
-                    app:layout_constraintTop_toTopOf="@id/imageDinner" />
+                    <TextView
+                        android:id="@+id/textBreakfast"
+                        style="@style/RecipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/title_breakfast"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textMealProtein" />
+
+                    <ImageView
+                        android:id="@+id/imageBreakfast"
+                        loadBigImageByTitle="@{viewModel.breakFast.image}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textBreakfast"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/textTitleBreakfast"
+                        style="@style/TextTitleRecipeLarge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.breakFast.title}"
+                        app:layout_constraintBottom_toBottomOf="@id/imageBreakfast"
+                        app:layout_constraintEnd_toEndOf="@id/imageBreakfast"
+                        app:layout_constraintStart_toStartOf="@id/imageBreakfast"
+                        app:layout_constraintTop_toTopOf="@id/imageBreakfast" />
+
+                    <TextView
+                        android:id="@+id/textLunch"
+                        style="@style/RecipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/title_lunch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageBreakfast" />
+
+                    <ImageView
+                        android:id="@+id/imageLunch"
+                        loadBigImageByTitle="@{viewModel.lunch.image}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textLunch"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/textTitleLunch"
+                        style="@style/TextTitleRecipeLarge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.lunch.title}"
+                        app:layout_constraintBottom_toBottomOf="@id/imageLunch"
+                        app:layout_constraintEnd_toEndOf="@id/imageLunch"
+                        app:layout_constraintStart_toStartOf="@id/imageLunch"
+                        app:layout_constraintTop_toTopOf="@id/imageLunch" />
+
+                    <TextView
+                        android:id="@+id/textDinner"
+                        style="@style/RecipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/title_dinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageLunch" />
+
+                    <ImageView
+                        android:id="@+id/imageDinner"
+                        loadBigImageByTitle="@{viewModel.dinner.image}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textDinner"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/textTitleDinner"
+                        style="@style/TextTitleRecipeLarge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.dinner.title}"
+                        app:layout_constraintBottom_toBottomOf="@id/imageDinner"
+                        app:layout_constraintEnd_toEndOf="@id/imageDinner"
+                        app:layout_constraintStart_toStartOf="@id/imageDinner"
+                        app:layout_constraintTop_toTopOf="@id/imageDinner" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDeletePlan"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_red_monza"
+                        android:text="@string/title_delete_meal_plan"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="@dimen/dp_10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageDinner"
+                        tools:targetApi="lollipop" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

@@ -12,6 +12,8 @@ const val PATH_NUTRITION = "{id}/nutritionWidget.json"
 const val PATH_FINDBYNUTRIENTS = "findByNutrients"
 const val PATH_COMPLEXSEARCH = "complexSearch"
 const val PATH_INFORMATIONBULK = "informationBulk"
+const val PATH_MEALPLAN = "mealplans"
+const val PATH_GENERATE = "generate"
 
 const val QUERY_QUERY = "query"
 const val QUERY_CUISINE = "cuisine"
@@ -28,6 +30,8 @@ const val QUERY_IDS = "ids"
 const val QUERY_MAX_READYTIME = "maxReadyTime"
 const val QUERY_SORT = "sort"
 const val QUERY_SORTDIRECTION = "sortDirection"
+const val QUERY_TIMEFRAME = "timeFrame"
+const val QUERY_TARGET_CALOS = "targetCalories"
 
 const val TOKEN = "apiKey"
 const val CODE_TIMEOUT = -1

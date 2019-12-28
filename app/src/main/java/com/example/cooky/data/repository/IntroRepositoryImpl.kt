@@ -1,6 +1,7 @@
 package com.example.cooky.data.repository
 
 import com.example.cooky.base.BaseResponse
+import com.example.cooky.data.local.dao.MealPlanDAO
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
@@ -10,12 +11,14 @@ import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.ResponseHandler
 import com.example.cooky.data.remote.api.ApiService
 import com.example.cooky.data.remote.response.IntroRecipeResponse
+import com.example.cooky.data.remote.response.MealPlanResponse
 import com.example.cooky.data.remote.response.RandomRecipeResponse
 import java.lang.Exception
 
 class IntroRepositoryImpl(
     private val apiService: ApiService,
-    private val responseHandler: ResponseHandler
+    private val responseHandler: ResponseHandler,
+    private val mealPlanDAO: MealPlanDAO
 ) : IntroRepository {
     override suspend fun searchRecipes(searchOption: SearchOption): BaseResponse<IntroRecipeResponse> =
         try {
@@ -166,4 +169,23 @@ class IntroRepositoryImpl(
         } catch (e: Exception) {
             responseHandler.handleException(e)
         }
+
+    override suspend fun getMealPlans(
+        timeFrame: String,
+        targetCalos: Int,
+        diet: String
+    ): BaseResponse<MealPlanResponse> =
+        try {
+            val response = apiService.getMealPlan(timeFrame, targetCalos, diet)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
+
+    override suspend fun getMealPlans() = mealPlanDAO.getMealPlans()
+
+    override suspend fun insertMealPlan(mealPlan: MealPlanResponse) =
+        mealPlanDAO.insertMealPlan(mealPlan)
+
+    override suspend fun deleteAllMealPlan() = mealPlanDAO.deleteAllMealPlan()
 }
