@@ -4,6 +4,7 @@ import com.example.cooky.ui.favorite.FavoriteViewModel
 import com.example.cooky.ui.general.GeneralViewModel
 import com.example.cooky.ui.general.content.GeneralContentViewModel
 import com.example.cooky.ui.general.discover.DiscoverViewModel
+import com.example.cooky.ui.mealplan.MealPlanViewModel
 import com.example.cooky.ui.recipe.RecipeViewModel
 import com.example.cooky.ui.search.bynutrients.NutrientsSearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModel { GeneralContentViewModel(get()) }
     viewModel { DiscoverViewModel(get()) }
     viewModel { NutrientsSearchViewModel(get()) }
+    viewModel { MealPlanViewModel(get()) }
 }

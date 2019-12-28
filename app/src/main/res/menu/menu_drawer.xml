@@ -8,9 +8,9 @@
             android:title="@string/title_home" />
 
         <item
-            android:id="@+id/destination_ingredient"
+            android:id="@+id/destination_meanplan"
             android:icon="@drawable/ic_apple"
-            android:title="@string/title_ingredient_search" />
+            android:title="@string/title_meal_plan" />
 
         <item
             android:id="@+id/destination_nutrient"

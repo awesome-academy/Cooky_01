@@ -57,7 +57,7 @@ class FavoriteFragment private constructor() :
             if (recentlyIds.isEmpty()) {
                 recentlyIds.addAll(newRecentlyIds)
                 viewModel.getRecentlyRecipes(recentlyIds)
-            } else if (recentlyIds[0] != newRecentlyIds[0]) {
+            } else if (recentlyIds.first() != newRecentlyIds.first()) {
                 recentlyIds = newRecentlyIds.toMutableList()
                 viewModel.getRecentlyRecipes(recentlyIds)
             }

@@ -35,4 +35,9 @@
     <action
         android:id="@+id/action_global_recipe_detail"
         app:destination="@+id/destination_recipe" />
+
+    <fragment
+        android:id="@+id/destination_meanplan"
+        android:name="com.example.cooky.ui.mealplan.MealPlanFragment"
+        android:label="MeanPlanFragment" />
 </navigation>

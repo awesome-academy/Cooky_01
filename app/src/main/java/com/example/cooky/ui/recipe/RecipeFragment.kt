@@ -1,11 +1,14 @@
 package com.example.cooky.ui.recipe
 
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.View
+import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -53,6 +56,10 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
         initRecyclerView()
         handleArrowDownClick()
         handleSaveRecentlyRecipe()
+        ImageViewCompat.setImageTintList(
+            floatingLike,
+            ColorStateList.valueOf(Color.WHITE)
+        )
     }
 
     private fun initAppBar() {

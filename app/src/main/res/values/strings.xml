@@ -51,4 +51,21 @@
     <string name="title_recently_viewed">RECENTLY VIEWED</string>
     <string name="title_like">LIKE</string>
     <string name="title_my_favorite">My Favorite</string>
+    <string name="title_meal_plan">Mean Plan</string>
+    <string name="title_create_meal_plan">Create Mean Plan</string>
+    <string name="title_calories_target">Calories Target:</string>
+    <string name="title_default_calo">500</string>
+    <string name="title_gluten_free">Gluten Free</string>
+    <string name="title_ketogenic">Ketogenic</string>
+    <string name="title_vegetarian">Vegetarian</string>
+    <string name="title_vegan">Vegan</string>
+    <string name="title_pescetarian">Pescetarian</string>
+    <string name="title_paleo">Paleo</string>
+    <string name="title_primal">Primal</string>
+    <string name="title_whole30">Whole30</string>
+    <string name="title_diet_all">All</string>
+    <string name="title_diet">Diet:</string>
+    <string name="title_create_new_meal_plan">Create New Mean Plan</string>
+    <string name="title_breakfast">Breakfast</string>
+    <string name="title_lunch">Lunch</string>
 </resources>

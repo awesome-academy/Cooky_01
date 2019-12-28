@@ -20,16 +20,16 @@ class FavoriteViewModel(
     private val _recentlyRecipe = MutableLiveData<List<Recipe>>()
     val recentlyRecipe: LiveData<List<Recipe>> get() = _recentlyRecipe
     private var currentLocalRecipeCount = 0
-    private var position = 0
+    private var localRecipePosition = 0
     override fun loadData() {
 
-        if (position < currentLocalRecipeCount) {
+        if (localRecipePosition < currentLocalRecipeCount) {
             setOnLoading()
             viewModelScope.launch {
-                val recipes = infoRepo.getRecipesByRange(position, NUMBER_PER_LOADING)
+                val recipes = infoRepo.getRecipesByRange(localRecipePosition, NUMBER_PER_LOADING)
                 onLoadSuccess(recipes)
                 setCloseLoading()
-                position += NUMBER_PER_LOADING
+                localRecipePosition += NUMBER_PER_LOADING
             }
         }
     }
@@ -47,7 +47,7 @@ class FavoriteViewModel(
 
     private fun reset() {
         clearData()
-        position = 0
+        localRecipePosition = 0
     }
 
     fun getRecentlyRecipes(ids: List<Int>) {

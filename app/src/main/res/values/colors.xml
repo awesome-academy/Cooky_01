@@ -7,4 +7,7 @@
     <color name="color_background_dark">#80161313</color>
     <color name="color_blue_bright">#8BDEE7</color>
     <color name="color_normal_track">#AAAAAA</color>
+    <color name="color_text_tablayout">#5A5959</color>
+    <color name="color_ripple_tablayout">#2881CB</color>
+    <color name="color_indicator_tablayout">#066795</color>
 </resources>

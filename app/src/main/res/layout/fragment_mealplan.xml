@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.cooky.ui.mealplan.MealPlanViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mealplan.MealPlanFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarMealPlan"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/holo_blue_light"
+                app:title="@string/title_meal_plan" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/textCreateMealPlan"
+                    style="@style/RecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_create_meal_plan"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textTargetCalo"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_calories_target"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textCreateMealPlan" />
+
+                <TextView
+                    android:id="@+id/textValueCalo"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:text="@string/title_default_calo"
+                    app:layout_constraintBottom_toBottomOf="@id/textTargetCalo"
+                    app:layout_constraintLeft_toRightOf="@id/textTargetCalo"
+                    app:layout_constraintTop_toTopOf="@id/textTargetCalo" />
+
+                <io.apptik.widget.MultiSlider
+                    android:id="@+id/multiSliderCalo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textTargetCalo"
+                    app:rangeColor="@color/color_blue_bright"
+                    app:scaleMax="2000"
+                    app:scaleMin="500"
+                    app:thumbColor="@android:color/holo_blue_light"
+                    app:thumbNumber="1" />
+
+                <TextView
+                    android:id="@+id/textDiet"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_diet"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/multiSliderCalo" />
+
+                <TextView
+                    android:id="@+id/textDietValue"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:text="@string/title_diet_all"
+                    app:layout_constraintStart_toEndOf="@id/textDiet"
+                    app:layout_constraintTop_toBottomOf="@id/multiSliderCalo" />
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textDiet">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupDiet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_gluten_free" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_ketogenic" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_vegetarian"
+                            app:closeIconEnabled="false" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_pescetarian" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_paleo" />
+
+                        <com.google.android.material.chip.Chip
+                            style="@style/DietChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_whole30" />
+
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCreatePlan"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:text="@string/title_create_new_meal_plan"
+                    android:textColor="@android:color/black"
+                    app:cornerRadius="@dimen/dp_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
+                    app:strokeColor="@android:color/holo_blue_light"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/textNutrition"
+                    style="@style/RecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/title_nutrition"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnCreatePlan" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/textMealCalo"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textNutrition" />
+
+                <TextView
+                    android:id="@+id/textMealCarb"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="@id/guidelineOne"
+                    app:layout_constraintTop_toBottomOf="@id/textNutrition" />
+
+                <TextView
+                    android:id="@+id/textMealFat"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="@id/guidelineOne"
+                    app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
+
+                <TextView
+                    android:id="@+id/textMealProtein"
+                    style="@style/OptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMealCalo" />
+
+                <TextView
+                    android:id="@+id/textBreakfast"
+                    style="@style/RecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/title_breakfast"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMealProtein" />
+
+                <ImageView
+                    android:id="@+id/imageBreakfast"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textBreakfast"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textTitleBreakfast"
+                    style="@style/TextTitleRecipeLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/imageBreakfast"
+                    app:layout_constraintEnd_toEndOf="@id/imageBreakfast"
+                    app:layout_constraintStart_toStartOf="@id/imageBreakfast"
+                    app:layout_constraintTop_toTopOf="@id/imageBreakfast" />
+
+                <TextView
+                    android:id="@+id/textLunch"
+                    style="@style/RecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/title_lunch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageBreakfast" />
+
+                <ImageView
+                    android:id="@+id/imageLunch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textLunch"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textTitleLunch"
+                    style="@style/TextTitleRecipeLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/imageLunch"
+                    app:layout_constraintEnd_toEndOf="@id/imageLunch"
+                    app:layout_constraintStart_toStartOf="@id/imageLunch"
+                    app:layout_constraintTop_toTopOf="@id/imageLunch" />
+
+                <TextView
+                    android:id="@+id/textDinner"
+                    style="@style/RecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/title_breakfast"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageLunch" />
+
+                <ImageView
+                    android:id="@+id/imageDinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textDinner"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textTitleDinner"
+                    style="@style/TextTitleRecipeLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/imageDinner"
+                    app:layout_constraintEnd_toEndOf="@id/imageDinner"
+                    app:layout_constraintStart_toStartOf="@id/imageDinner"
+                    app:layout_constraintTop_toTopOf="@id/imageDinner" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
