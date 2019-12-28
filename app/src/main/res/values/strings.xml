@@ -51,8 +51,8 @@
     <string name="title_recently_viewed">RECENTLY VIEWED</string>
     <string name="title_like">LIKE</string>
     <string name="title_my_favorite">My Favorite</string>
-    <string name="title_meal_plan">Mean Plan</string>
-    <string name="title_create_meal_plan">Create Mean Plan</string>
+    <string name="title_meal_plan">Meal Plan</string>
+    <string name="title_create_meal_plan">Create Meal Plan</string>
     <string name="title_calories_target">Calories Target:</string>
     <string name="title_default_calo">500</string>
     <string name="title_gluten_free">Gluten Free</string>
@@ -65,7 +65,9 @@
     <string name="title_whole30">Whole30</string>
     <string name="title_diet_all">All</string>
     <string name="title_diet">Diet:</string>
-    <string name="title_create_new_meal_plan">Create New Mean Plan</string>
+    <string name="title_create_new_meal_plan">Create New Meal Plan</string>
     <string name="title_breakfast">Breakfast</string>
     <string name="title_lunch">Lunch</string>
+    <string name="title_dinner">Dinner</string>
+    <string name="title_delete_meal_plan">Delete Meal Plan</string>
 </resources>

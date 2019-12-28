@@ -43,6 +43,17 @@ fun ImageView.loadBigImage(uri: String?) {
     }
 }
 
+@BindingAdapter("loadBigImageByTitle")
+fun ImageView.loadBigImageByTitle(imageTitle: String?) {
+    val newUri = IMAGE_RECIPE_URI + imageTitle
+    Glide.with(context)
+        .asBitmap()
+        .load(newUri)
+        .placeholder(R.drawable.place_holder_636x393)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .into(this)
+}
+
 @BindingAdapter("loadIngredientImage")
 fun ImageView.loadIngredientImage(image: String?) {
     if (image != null) {
@@ -92,3 +103,4 @@ fun View.setGoneIfLoading(isLoading: Boolean) {
 const val NORMAL_IMAGE_SIZE = "312x231"
 const val BIG_IMAGE_SIZE = "636x393"
 const val IMAGE_INGRADIENT_URI = "https://spoonacular.com/cdn/ingredients_100x100/"
+const val IMAGE_RECIPE_URI = "https://spoonacular.com/recipeImages/"

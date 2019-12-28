@@ -5,6 +5,7 @@ import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.Nutrition
 import com.example.cooky.data.local.model.recipe.Recipe
 import com.example.cooky.data.remote.response.IntroRecipeResponse
+import com.example.cooky.data.remote.response.MealPlanResponse
 import com.example.cooky.data.remote.response.RandomRecipeResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -117,4 +118,11 @@ interface ApiService {
     suspend fun getRecipeNutrition(
         @Path(QUERY_ID) id: Int
     ): Nutrition
+
+    @GET("$PATH_RECIPE/$PATH_MEALPLAN/$PATH_GENERATE")
+    suspend fun getMealPlan(
+        @Query(QUERY_TIMEFRAME) timeFrame: String,
+        @Query(QUERY_TARGET_CALOS) targetCalos: Int,
+        @Query(QUERY_DIET) diet: String
+    ): MealPlanResponse
 }

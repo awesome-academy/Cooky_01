@@ -9,7 +9,9 @@ import com.example.cooky.data.local.model.search.BasicSearchOption
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.api.DEFAULT_NUMBER
 import com.example.cooky.data.remote.api.EMPTY_STRING
+import com.example.cooky.data.remote.api.TIME_FRAME_DAY
 import com.example.cooky.data.remote.response.IntroRecipeResponse
+import com.example.cooky.data.remote.response.MealPlanResponse
 import com.example.cooky.data.remote.response.RandomRecipeResponse
 
 interface IntroRepository {
@@ -53,5 +55,17 @@ interface IntroRepository {
         number: Int = DEFAULT_NUMBER
     ): BaseResponse<List<QueryIngredientSearch>>
 
+    suspend fun getMealPlans(
+        timeFrame: String = TIME_FRAME_DAY,
+        targetCalos: Int,
+        diet: String = EMPTY_STRING
+    ): BaseResponse<MealPlanResponse>
+
     suspend fun getManyRecipeByIds(ids: String): BaseResponse<List<Recipe>>
+
+    suspend fun getMealPlans(): List<MealPlanResponse>
+
+    suspend fun insertMealPlan(mealPlan: MealPlanResponse)
+
+    suspend fun deleteAllMealPlan()
 }
