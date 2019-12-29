@@ -1,6 +1,5 @@
 package com.example.cooky.ui.recipe
 
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
@@ -21,15 +20,9 @@ import com.example.cooky.ui.adapter.GoodNutritionAdapter
 import com.example.cooky.ui.adapter.IngredientAdapter
 import com.example.cooky.ui.adapter.StepAdapter
 import com.example.cooky.util.*
-import com.example.cooky.util.onShow
-import com.example.cooky.util.stringToListInteger
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_recipe.*
-import kotlinx.android.synthetic.main.fragment_recipe.btnArrowDownGood
-import kotlinx.android.synthetic.main.fragment_recipe.recyclerBadNutrition
-import kotlinx.android.synthetic.main.fragment_recipe.recyclerGoodNutrition
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
@@ -42,7 +35,6 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
     private val stepAdapter = StepAdapter()
     override val layoutResource: Int = R.layout.fragment_recipe
 
-    private val sharedPreferences: SharedPreferences by inject()
     override val viewModel: RecipeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +47,6 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
         initToolbar()
         initRecyclerView()
         handleArrowDownClick()
-        handleSaveRecentlyRecipe()
         ImageViewCompat.setImageTintList(
             floatingLike,
             ColorStateList.valueOf(Color.WHITE)
@@ -150,30 +141,6 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
                 recyclerGoodNutrition.onShow(false)
             }
         }
-    }
-
-    private fun handleSaveRecentlyRecipe() {
-        val recentlyIds = mutableListOf<Int>().apply {
-            val recentlyIdsString = sharedPreferences.getString(RECENTLY_ID, STRING_NULL)
-            if (recentlyIdsString == STRING_NULL) {
-                add(recipeId)
-            } else {
-                addAll(stringToListInteger(recentlyIdsString!!))
-                when {
-                    this.contains(recipeId) -> {
-                        remove(recipeId)
-                        add(INDEX_FIRST, recipeId)
-                    }
-                    this.size < MAX_RECENTLY_RECIPES -> add(recipeId)
-                    else -> {
-                        removeAt(MAX_RECENTLY_RECIPES - 1)
-                        add(INDEX_FIRST, recipeId)
-                    }
-                }
-            }
-        }
-        sharedPreferences.edit().putString(RECENTLY_ID, recentlyIds.joinToString(STRING_COMMA))
-            .apply()
     }
 
     override fun setBindingVariables() {

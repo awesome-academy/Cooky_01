@@ -33,7 +33,7 @@ class NutrientPickerAdapter(
     @SuppressLint("SetTextI18n")
     override fun setEvent(binding: ItemNutrientPickerBinding) {
         binding.apply {
-            rangePicker.setOnThumbValueChangeListener { multiSlider, thumb, thumbIndex, value ->
+            rangePicker.setOnThumbValueChangeListener { _, _, thumbIndex, value ->
                 item?.let { onRangePickerChange(it.title, thumbIndex, value) }
                 if (thumbIndex == 0) {
                     textStart.text = "$value$TEXT_DASH"

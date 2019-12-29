@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.example.cooky.data.local.model.recipe.Recipe" />
+            type="com.example.cooky.data.local.model.search.IntroRecipe" />
     </data>
 
     <androidx.cardview.widget.CardView

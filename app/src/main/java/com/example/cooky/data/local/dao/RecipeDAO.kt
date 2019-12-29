@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.cooky.data.local.model.recipe.Recipe
 
 @Dao
-interface RecipeDAO {
+interface RecipeDao {
     @Query("SELECT * FROM recipe")
     suspend fun getRecipeList(): List<Recipe>
 

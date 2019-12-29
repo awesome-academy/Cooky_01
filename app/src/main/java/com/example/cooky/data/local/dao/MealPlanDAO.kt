@@ -7,7 +7,7 @@ import com.example.cooky.data.local.TABLE_MEAL_PLAN
 import com.example.cooky.data.remote.response.MealPlanResponse
 
 @Dao
-interface MealPlanDAO {
+interface MealPlanDao {
     @Query("SELECT * FROM $TABLE_MEAL_PLAN")
     suspend fun getMealPlans(): List<MealPlanResponse>
 
