@@ -1,9 +1,7 @@
 package com.example.cooky
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -22,12 +20,19 @@ class MainActivity : AppCompatActivity(), SetupDrawer {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(nav_view, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.destination_home) {
+                onUnLockDrawer()
+            } else {
+                onLockDrawer()
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
-
 
     override fun onShowDrawer() {
         layoutDrawer.openDrawer(GravityCompat.START)
@@ -42,6 +47,6 @@ class MainActivity : AppCompatActivity(), SetupDrawer {
     }
 
     override fun onUnLockDrawer() {
-        layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
+        layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 }

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.cooky.R
 import com.example.cooky.util.showToast
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
@@ -56,11 +57,18 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     private fun handleGetMessage(message: String) {
-        context?.showToast(message)
+        if (message == getString(R.string.message_no_internet)) {
+            handleNoInternet()
+        } else {
+            context?.showToast(message)
+        }
     }
 
     private fun handleLoading(isLoading: Boolean) {
         if (isLoading) showLoading() else hideLoading()
+    }
+
+    protected open fun handleNoInternet() {
     }
 
     open fun showLoading() {

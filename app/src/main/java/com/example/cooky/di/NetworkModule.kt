@@ -1,6 +1,7 @@
 package com.example.cooky.di
 
 import com.example.cooky.data.remote.AuthInterceptor
+import com.example.cooky.data.remote.NetworkConnectionInterceptor
 import com.example.cooky.data.remote.ResponseHandler
 import com.example.cooky.data.remote.api.BASE_URL
 import com.example.cooky.data.remote.api.ApiService
@@ -13,7 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 val networkModule = module {
     single { AuthInterceptor() }
     single { createLoggingInterceptor() }
-    single { createOkHttpClient(get(), get()) }
+    single { NetworkConnectionInterceptor(get()) }
+    single { createOkHttpClient(get(), get(), get()) }
     single { createRetrofit(get()) }
     single { createApiService(get()) }
     single { ResponseHandler() }
@@ -27,10 +29,12 @@ fun createRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
 
 fun createOkHttpClient(
     authInterceptor: AuthInterceptor,
-    loggingInterceptor: HttpLoggingInterceptor
+    loggingInterceptor: HttpLoggingInterceptor,
+    networkConnectionInterceptor: NetworkConnectionInterceptor
 ): OkHttpClient = OkHttpClient().newBuilder()
     .addInterceptor(authInterceptor)
     .addInterceptor(loggingInterceptor)
+    .addInterceptor(networkConnectionInterceptor)
     .build()
 
 fun createLoggingInterceptor(): HttpLoggingInterceptor {

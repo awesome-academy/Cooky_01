@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -167,6 +168,28 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding, RecipeViewModel>() {
                 )
             })
             loadData(recipeId)
+        }
+    }
+
+    override fun handleNoInternet() {
+        progressLoading.hide()
+        context?.let {
+            Snackbar.make(
+                coordinatorLayout,
+                getString(R.string.message_no_internet),
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(TITLE_TRY_AGAIN, object : View.OnClickListener {
+                    override fun onClick(p0: View?) {
+                            if (!isInternetConnected(it)) {
+                                handleNoInternet()
+                            } else {
+                                viewModel.loadData(recipeId)
+                            }
+                    }
+                })
+                .setActionTextColor(ContextCompat.getColor(it, R.color.color_blue_light))
+                .show()
         }
     }
 }

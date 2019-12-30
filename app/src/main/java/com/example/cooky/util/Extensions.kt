@@ -1,6 +1,7 @@
 package com.example.cooky.util
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -30,3 +31,11 @@ fun View.onShow(isShow: Boolean) {
 }
 
 fun stringToListInteger(string: String) = string.split(STRING_COMMA).map { num -> num.toInt() }
+
+fun isInternetConnected(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    connectivityManager.activeNetworkInfo.let {
+        return it != null && it.isConnected
+    }
+}

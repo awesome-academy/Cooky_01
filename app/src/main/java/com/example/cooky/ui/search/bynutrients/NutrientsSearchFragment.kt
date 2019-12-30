@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,9 +19,8 @@ import com.example.cooky.databinding.FragmentNutrientsSearchBinding
 import com.example.cooky.ui.adapter.IntroAdapterVertical
 import com.example.cooky.ui.adapter.NutrientPickerAdapter
 import com.example.cooky.util.*
-import com.example.cooky.util.hideKeyboard
-import com.example.cooky.util.setVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_nutrients_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -232,8 +232,34 @@ class NutrientsSearchFragment :
         viewModel.listItem.observe(viewLifecycleOwner, Observer(recipeAdapter::submitList))
     }
 
+    override fun handleNoInternet() {
+        progressLoading.onShow(false)
+        progressBarLoadMore.onShow(false)
+        context?.let {
+            Snackbar.make(
+                nestedScrollView,
+                getString(R.string.message_no_internet),
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(TITLE_TRY_AGAIN) { _ ->
+                    if (!isInternetConnected(it)) {
+                        handleNoInternet()
+                    } else {
+                        viewModel.searchRecipe(searchOption, nutrientOption)
+                    }
+                }
+                .setActionTextColor(ContextCompat.getColor(it, R.color.color_blue_light))
+                .show()
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(NUTRIENT_OPTION, nutrientOption)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        searchView.hideKeyboard()
     }
 }

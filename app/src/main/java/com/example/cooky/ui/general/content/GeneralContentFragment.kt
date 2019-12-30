@@ -1,5 +1,6 @@
 package com.example.cooky.ui.general.content
 
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -10,6 +11,9 @@ import com.example.cooky.databinding.FragmentGeneralContentBinding
 import com.example.cooky.ui.adapter.IntroAdapterHorizontal
 import com.example.cooky.ui.adapter.IntroAdapterVertical
 import com.example.cooky.ui.home.HomeFragmentDirections
+import com.example.cooky.util.TITLE_TRY_AGAIN
+import com.example.cooky.util.isInternetConnected
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_general_content.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -77,6 +81,27 @@ class GeneralContentFragment :
                 firstLoadData()
                 isFirstLoaded = true
             }
+        }
+    }
+
+    override fun handleNoInternet() {
+        progressLoading.hide()
+        context?.let {
+            Snackbar.make(
+                nestedScrollView,
+                getString(R.string.message_no_internet),
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(TITLE_TRY_AGAIN) { _ ->
+                    if (!isInternetConnected(it)) {
+                        handleNoInternet()
+                    } else {
+                        viewModel.firstLoadData()
+                        isFirstLoaded = true
+                    }
+                }
+                .setActionTextColor(ContextCompat.getColor(it, R.color.color_blue_light))
+                .show()
         }
     }
 }

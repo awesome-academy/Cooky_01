@@ -76,6 +76,7 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
         setOnLoading()
         currentRecipeId = id
         viewModelScope.launch {
+            recentlyRecipes.clear()
             recentlyRecipes.addAll(repo.getAllIntroRecipes())
             val localRecipe = repo.getRecipeById(id)
             val localNutrition = repo.getNutritionById(id)
