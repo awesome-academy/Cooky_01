@@ -5,6 +5,7 @@ import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.Nutrition
 import com.example.cooky.data.local.model.recipe.Recipe
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.data.remote.api.DEFAULT_NUMBER
 
 interface InfoRepository {
@@ -46,4 +47,10 @@ interface InfoRepository {
     suspend fun getRecipesByRange(from: Int, to: Int): List<Recipe>
 
     suspend fun getRecipeCount(): Int
+
+    suspend fun getAllIntroRecipes(): List<IntroRecipe>
+
+    suspend fun deleteAllIntroRecipes()
+
+    suspend fun addIntroRecipes(introRecipes: List<IntroRecipe>)
 }

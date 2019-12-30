@@ -1,12 +1,14 @@
 package com.example.cooky.data.repository
 
 import com.example.cooky.base.BaseResponse
-import com.example.cooky.data.local.dao.MealPlanDAO
+import com.example.cooky.data.local.dao.IntroRecipeDao
+import com.example.cooky.data.local.dao.MealPlanDao
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.NutrientOption
 import com.example.cooky.data.local.model.recipe.Recipe
 import com.example.cooky.data.local.model.search.BasicSearchOption
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.data.local.model.search.SearchOption
 import com.example.cooky.data.remote.ResponseHandler
 import com.example.cooky.data.remote.api.ApiService
@@ -18,7 +20,8 @@ import java.lang.Exception
 class IntroRepositoryImpl(
     private val apiService: ApiService,
     private val responseHandler: ResponseHandler,
-    private val mealPlanDAO: MealPlanDAO
+    private val mealPlanDao: MealPlanDao,
+    private val introDao: IntroRecipeDao
 ) : IntroRepository {
     override suspend fun searchRecipes(searchOption: SearchOption): BaseResponse<IntroRecipeResponse> =
         try {
@@ -182,10 +185,17 @@ class IntroRepositoryImpl(
             responseHandler.handleException(e)
         }
 
-    override suspend fun getMealPlans() = mealPlanDAO.getMealPlans()
+    override suspend fun getMealPlans() = mealPlanDao.getMealPlans()
 
     override suspend fun insertMealPlan(mealPlan: MealPlanResponse) =
-        mealPlanDAO.insertMealPlan(mealPlan)
+        mealPlanDao.insertMealPlan(mealPlan)
 
-    override suspend fun deleteAllMealPlan() = mealPlanDAO.deleteAllMealPlan()
+    override suspend fun deleteAllMealPlan() = mealPlanDao.deleteAllMealPlan()
+
+    override suspend fun getAllIntroRecipes(): List<IntroRecipe> = introDao.getAllIntroRecipes()
+
+    override suspend fun addIntroRecipes(introRecipes: List<IntroRecipe>) =
+        introDao.addAllIntroRecipes(introRecipes)
+
+    override suspend fun deleteAllIntroRecipes() = introDao.deleteAllIntroRecipes()
 }

@@ -1,19 +1,22 @@
 package com.example.cooky.data.repository
 
 import com.example.cooky.base.BaseResponse
+import com.example.cooky.data.local.dao.IntroRecipeDao
 import com.example.cooky.data.local.dao.NutritionDao
-import com.example.cooky.data.local.dao.RecipeDAO
+import com.example.cooky.data.local.dao.RecipeDao
 import com.example.cooky.data.local.model.autocomplete.QueryIngredientSearch
 import com.example.cooky.data.local.model.autocomplete.QueryRecipeSearch
 import com.example.cooky.data.local.model.nutition.Nutrition
 import com.example.cooky.data.local.model.recipe.Recipe
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.data.remote.ResponseHandler
 import com.example.cooky.data.remote.api.ApiService
 
 class InfoRepositoryImpl(
     private val nutritionDao: NutritionDao,
-    private val recipeDAO: RecipeDAO,
+    private val recipeDao: RecipeDao,
     private val apiService: ApiService,
+    private val introDao: IntroRecipeDao,
     private val responseHandler: ResponseHandler
 ) : InfoRepository {
     override suspend fun getRecipesInformation(id: Int): BaseResponse<Recipe> =
@@ -67,18 +70,25 @@ class InfoRepositoryImpl(
 
     override suspend fun getAllNutritionIds() = nutritionDao.getAllNutritionIds()
 
-    override suspend fun insertRecipe(recipe: Recipe) = recipeDAO.insertRecipe(recipe)
+    override suspend fun insertRecipe(recipe: Recipe) = recipeDao.insertRecipe(recipe)
 
-    override suspend fun deleteRecipeById(idRecipe: Int) = recipeDAO.deleteRecipeById(idRecipe)
+    override suspend fun deleteRecipeById(idRecipe: Int) = recipeDao.deleteRecipeById(idRecipe)
 
-    override suspend fun getRecipeById(idRecipe: Int) = recipeDAO.getRecipeById(idRecipe)
+    override suspend fun getRecipeById(idRecipe: Int) = recipeDao.getRecipeById(idRecipe)
 
-    override suspend fun getAllRecipes() = recipeDAO.getRecipeList()
+    override suspend fun getAllRecipes() = recipeDao.getRecipeList()
 
-    override suspend fun getAllRecipeIds() = recipeDAO.getAllRecipeIds()
+    override suspend fun getAllRecipeIds() = recipeDao.getAllRecipeIds()
 
     override suspend fun getRecipesByRange(from: Int, to: Int) =
-        recipeDAO.getRecipeByRange(from, to)
+        recipeDao.getRecipeByRange(from, to)
 
-    override suspend fun getRecipeCount() = recipeDAO.getRecipeCount()
+    override suspend fun getRecipeCount() = recipeDao.getRecipeCount()
+
+    override suspend fun getAllIntroRecipes(): List<IntroRecipe> = introDao.getAllIntroRecipes()
+
+    override suspend fun addIntroRecipes(introRecipes: List<IntroRecipe>) =
+        introDao.addAllIntroRecipes(introRecipes)
+
+    override suspend fun deleteAllIntroRecipes() = introDao.deleteAllIntroRecipes()
 }

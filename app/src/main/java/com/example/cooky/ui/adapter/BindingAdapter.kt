@@ -83,9 +83,7 @@ fun View.loadBackground(uri: String?) {
         .into(object : CustomTarget<Bitmap>() {
             override fun onLoadCleared(placeholder: Drawable?) {}
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     this@loadBackground.background = BitmapDrawable(resources, resource)
-                }
             }
         })
 }

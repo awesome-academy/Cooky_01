@@ -1,8 +1,10 @@
 package com.example.cooky
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -26,12 +28,13 @@ class MainActivity : AppCompatActivity(), SetupDrawer {
         return NavigationUI.navigateUp(navController, null)
     }
 
+
     override fun onShowDrawer() {
-        layoutDrawer.openDrawer(Gravity.LEFT)
+        layoutDrawer.openDrawer(GravityCompat.START)
     }
 
     override fun onHideDrawer() {
-        layoutDrawer.closeDrawer(Gravity.LEFT)
+        layoutDrawer.closeDrawer(GravityCompat.START)
     }
 
     override fun onLockDrawer() {

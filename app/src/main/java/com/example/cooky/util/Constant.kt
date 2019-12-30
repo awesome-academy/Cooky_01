@@ -27,3 +27,5 @@ const val QUERY_NUMBER_DEFAULT = 20
 const val FIRST_THUMP_INDEX = 0
 const val NUTRIENT_OPTION = "nutrient option"
 const val NUMBER_PER_LOADING = 10
+const val RECENTLY_RECIPE_SIZE = 8
+const val DEFAULT_RECIPE_ID = 0

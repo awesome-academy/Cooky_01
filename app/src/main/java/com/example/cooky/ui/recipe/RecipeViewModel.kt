@@ -7,7 +7,10 @@ import com.example.cooky.base.BaseViewModel
 import com.example.cooky.base.Status
 import com.example.cooky.data.local.model.nutition.Nutrition
 import com.example.cooky.data.local.model.recipe.Recipe
+import com.example.cooky.data.local.model.search.IntroRecipe
 import com.example.cooky.data.repository.InfoRepository
+import com.example.cooky.util.DEFAULT_RECIPE_ID
+import com.example.cooky.util.RECENTLY_RECIPE_SIZE
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
@@ -25,15 +28,34 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
     private val _nutrition = MutableLiveData<Nutrition>()
     val nutrition: LiveData<Nutrition> get() = _nutrition
 
+    private val recentlyRecipes = mutableListOf<IntroRecipe>()
+
     private fun getRecipe(id: Int) {
         viewModelScope.launch {
             val response = repo.getRecipesInformation(id)
             if (response.status == Status.SUCCESS) {
-                _recipe.value = response.data
-                setCloseLoading()
+                response.data?.let {
+                    _recipe.value = it
+                    setCloseLoading()
+                    val introRecipe = IntroRecipe(it.recipeId, it.image, it.title)
+                    handleSaveRecentlyRecipe(introRecipe)
+                }
             } else {
                 response.message?.let(::setMessage)
             }
+        }
+    }
+
+    private fun handleSaveRecentlyRecipe(introRecipe: IntroRecipe) {
+        if (recentlyRecipes.contains(introRecipe)) {
+            recentlyRecipes.remove(introRecipe)
+        } else if (recentlyRecipes.size == RECENTLY_RECIPE_SIZE) {
+            recentlyRecipes.removeAt(RECENTLY_RECIPE_SIZE - 1)
+        }
+        recentlyRecipes.add(0, introRecipe)
+        viewModelScope.launch {
+            repo.deleteAllIntroRecipes()
+            repo.addIntroRecipes(recentlyRecipes)
         }
     }
 
@@ -54,6 +76,7 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
         setOnLoading()
         currentRecipeId = id
         viewModelScope.launch {
+            recentlyRecipes.addAll(repo.getAllIntroRecipes())
             val localRecipe = repo.getRecipeById(id)
             val localNutrition = repo.getNutritionById(id)
             setCloseLoading()
@@ -61,6 +84,10 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
                 _recipe.value = localRecipe
                 _nutrition.value = localNutrition
                 _isFavorite.value = true
+                localRecipe.let {
+                    val introRecipe = IntroRecipe(it.recipeId, it.image, it.title)
+                    handleSaveRecentlyRecipe(introRecipe)
+                }
             } else {
                 _isFavorite.value = false
                 getRecipe(id)
@@ -70,8 +97,8 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
         }
     }
 
-    fun handleSaveFavorite(){
-        if(!isOnLoadingDatabase) {
+    fun handleSaveFavorite() {
+        if (!isOnLoadingDatabase) {
             isFavorite.value?.let {
                 if (it)
                     removeFromFavorite()
@@ -103,9 +130,5 @@ class RecipeViewModel(private val repo: InfoRepository) : BaseViewModel() {
                 isOnLoadingDatabase = false
             }
         }
-    }
-
-    companion object{
-        const val DEFAULT_RECIPE_ID = 0
     }
 }
