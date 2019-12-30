@@ -62,4 +62,9 @@
     <string name="title_lunch">Lunch</string>
     <string name="title_dinner">Dinner</string>
     <string name="title_delete_meal_plan">Delete Meal Plan</string>
+    <string name="message_timeout">Request TimeOut</string>
+    <string name="message_authorized">You are not authorized</string>
+    <string name="message_not_found">Not Found</string>
+    <string name="message_something_error">Something went wrong</string>
+    <string name="message_no_internet">No Internet Connection</string>
 </resources>

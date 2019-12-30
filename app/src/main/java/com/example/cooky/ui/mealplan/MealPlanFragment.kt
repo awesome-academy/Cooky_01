@@ -1,5 +1,6 @@
 package com.example.cooky.ui.mealplan
 
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.cooky.R
@@ -7,6 +8,7 @@ import com.example.cooky.base.BaseFragment
 import com.example.cooky.data.remote.response.MealPlanResponse
 import com.example.cooky.databinding.FragmentMealplanBinding
 import com.example.cooky.util.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_mealplan.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -79,6 +81,27 @@ class MealPlanFragment : BaseFragment<FragmentMealplanBinding, MealPlanViewModel
         viewModel.apply {
             checkLocalMealPlan()
             mealPlan.observe(viewLifecycleOwner, Observer { currentMealPlan = it })
+        }
+    }
+
+    override fun handleNoInternet() {
+        progressCreateMealPlan.onShow(false)
+        context?.let {
+            Snackbar.make(
+                nestedScrollView,
+                getString(R.string.message_no_internet),
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction(TITLE_TRY_AGAIN) { _ ->
+                    if (!isInternetConnected(it)) {
+                        handleNoInternet()
+                    } else {
+                        viewModel.getMealPlan(targetCalors, diet)
+                        isFirstLoaded = true
+                    }
+                }
+                .setActionTextColor(ContextCompat.getColor(it, R.color.color_blue_light))
+                .show()
         }
     }
 }

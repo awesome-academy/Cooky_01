@@ -35,9 +35,6 @@ const val QUERY_TARGET_CALOS = "targetCalories"
 
 const val TOKEN = "apiKey"
 const val CODE_TIMEOUT = -1
-const val MESSAGE_TIMEOUT = "Request TimeOut"
 const val CODE_UNAUTHORISED = 401
-const val MESSAGE_UNAUTHORISED = "You are not authorized"
 const val CODE_NOTFOUND = 404
-const val MESSAGE_NOTFOUND = "Not Found"
-const val MESSAGE_SOMETHING_ERROR = "Something went wrong"
+const val CODE_NO_INTERNET = 999

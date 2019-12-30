@@ -45,17 +45,17 @@ class TypeConverter {
             result.append(UNDERSTROKE).append(it.number)
                 .append(ASTERISK).append(it.step)
         }
-        return result.substring(1).toString()
+        return result.substring(2).toString()
     }
 
     @TypeConverter
     fun fromStringToExtendedIngredents(value: String): List<ExtendedIngredient> {
         val result = mutableListOf<ExtendedIngredient>()
-        val ingredientStrings = value.split("$UNDERSTROKE")
+        val ingredientStrings = value.split(UNDERSTROKE)
         ingredientStrings.forEach {
-            val ingredientString = it.split("$ASTERISK")
+            val ingredientString = it.split(ASTERISK)
             val measureStrings = ingredientString[3]
-            val itemStrings = measureStrings.split("$PLUS")
+            val itemStrings = measureStrings.split(PLUS)
             val metric = Metric(
                 amount = itemStrings[0].toDouble(),
                 unitShort = itemStrings[1],
@@ -95,7 +95,7 @@ class TypeConverter {
                 .append(PLUS).append(metric.unitShort)
                 .append(PLUS).append(metric.unitLong)
         }
-        return result.substring(1).toString()
+        return result.substring(2).toString()
     }
 
     @TypeConverter
@@ -123,7 +123,7 @@ class TypeConverter {
                 .append(ASTERISK).append(it.percentOfDailyNeeds)
                 .append(ASTERISK).append(it.title)
         }
-        return result.substring(1).toString()
+        return result.substring(2).toString()
     }
 
     @TypeConverter
@@ -151,7 +151,7 @@ class TypeConverter {
                 .append(ASTERISK).append(it.percentOfDailyNeeds)
                 .append(ASTERISK).append(it.title)
         }
-        return result.substring(1).toString()
+        return result.substring(2).toString()
     }
 
     @TypeConverter
@@ -162,7 +162,7 @@ class TypeConverter {
                 .append(ASTERISK).append(it.title)
                 .append(ASTERISK).append(it.image)
         }
-        return result.substring(1).toString()
+        return result.substring(2).toString()
     }
 
     @TypeConverter
@@ -183,8 +183,8 @@ class TypeConverter {
     }
 
     companion object {
-        private const val UNDERSTROKE = '_'
-        private const val ASTERISK = '*'
-        private const val PLUS = '+'
+        private const val UNDERSTROKE = "__"
+        private const val ASTERISK = "**"
+        private const val PLUS = "++"
     }
 }
