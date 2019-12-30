@@ -22,10 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             setGoneIfLoading="@{viewModel.isLoading}"
-            android:background="@color/color_background"
-            android:paddingStart="@dimen/dp_10"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingEnd="@dimen/dp_10">
+            android:background="@color/color_background">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,7 +33,9 @@
                     android:id="@+id/recyclerViewSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -64,7 +63,7 @@
             android:layout_gravity="center"
             setVisibleIfLoading="@{viewModel.isLoading}"
             app:indicatorColor="@color/colorAccent"
-            app:indicatorName="LineScaleIndicator" />
+            app:indicatorName="PacmanIndicator" />
     </FrameLayout>
 
 </layout>
